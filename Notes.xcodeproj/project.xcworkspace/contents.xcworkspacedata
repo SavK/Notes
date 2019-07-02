@@ -2,6 +2,15 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Notes.xcodeproj">
+      location = "group:/Users/constantine/Documents/Projects/Git/Notes/Notes/FileNotebook.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/constantine/Documents/Projects/Git/Notes/Notes/Note.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/constantine/Documents/Projects/Git/Notes/Notes/NoteExtension.swift">
+   </FileRef>
+   <FileRef
+      location = "self:">
    </FileRef>
 </Workspace>

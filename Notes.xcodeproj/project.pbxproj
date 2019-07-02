@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AD12A93222CA6E5200C65014 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD12A92F22CA6E5100C65014 /* Note.swift */; };
+		AD12A93322CA6E5200C65014 /* NoteExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD12A93122CA6E5200C65014 /* NoteExtension.swift */; };
+		AD12A93422CA6E5200C65014 /* FileNotebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD12A93022CA6E5200C65014 /* FileNotebook.swift */; };
 		AD4960A722CA6CFC005E5FE0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4960A622CA6CFC005E5FE0 /* AppDelegate.swift */; };
 		AD4960A922CA6CFC005E5FE0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4960A822CA6CFC005E5FE0 /* ViewController.swift */; };
 		AD4960AC22CA6CFC005E5FE0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD4960AA22CA6CFC005E5FE0 /* Main.storyboard */; };
@@ -15,6 +18,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AD12A92F22CA6E5100C65014 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Note.swift; path = /Users/constantine/Documents/Projects/Git/Notes/Notes/Note.swift; sourceTree = "<absolute>"; };
+		AD12A93022CA6E5200C65014 /* FileNotebook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FileNotebook.swift; path = /Users/constantine/Documents/Projects/Git/Notes/Notes/FileNotebook.swift; sourceTree = "<absolute>"; };
+		AD12A93122CA6E5200C65014 /* NoteExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteExtension.swift; path = /Applications/Xcode.app/Contents/Developer/../../../../Users/constantine/Documents/Projects/Git/Notes/Notes/NoteExtension.swift; sourceTree = "<absolute>"; usesTabs = 0; };
 		AD4960A322CA6CFC005E5FE0 /* Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD4960A622CA6CFC005E5FE0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AD4960A822CA6CFC005E5FE0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -54,6 +60,9 @@
 		AD4960A522CA6CFC005E5FE0 /* Notes */ = {
 			isa = PBXGroup;
 			children = (
+				AD12A93022CA6E5200C65014 /* FileNotebook.swift */,
+				AD12A92F22CA6E5100C65014 /* Note.swift */,
+				AD12A93122CA6E5200C65014 /* NoteExtension.swift */,
 				AD4960A622CA6CFC005E5FE0 /* AppDelegate.swift */,
 				AD4960A822CA6CFC005E5FE0 /* ViewController.swift */,
 				AD4960AA22CA6CFC005E5FE0 /* Main.storyboard */,
@@ -135,8 +144,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD12A93422CA6E5200C65014 /* FileNotebook.swift in Sources */,
 				AD4960A922CA6CFC005E5FE0 /* ViewController.swift in Sources */,
+				AD12A93322CA6E5200C65014 /* NoteExtension.swift in Sources */,
 				AD4960A722CA6CFC005E5FE0 /* AppDelegate.swift in Sources */,
+				AD12A93222CA6E5200C65014 /* Note.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,7 +304,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = SavK.Notes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -310,7 +322,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = SavK.Notes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
