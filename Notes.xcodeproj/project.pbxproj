@@ -60,9 +60,7 @@
 		AD4960A522CA6CFC005E5FE0 /* Notes */ = {
 			isa = PBXGroup;
 			children = (
-				AD12A93022CA6E5200C65014 /* FileNotebook.swift */,
-				AD12A92F22CA6E5100C65014 /* Note.swift */,
-				AD12A93122CA6E5200C65014 /* NoteExtension.swift */,
+				ADCCF0AC22CB35E10055DE1A /* Model */,
 				AD4960A622CA6CFC005E5FE0 /* AppDelegate.swift */,
 				AD4960A822CA6CFC005E5FE0 /* ViewController.swift */,
 				AD4960AA22CA6CFC005E5FE0 /* Main.storyboard */,
@@ -71,6 +69,16 @@
 				AD4960B222CA6D01005E5FE0 /* Info.plist */,
 			);
 			path = Notes;
+			sourceTree = "<group>";
+		};
+		ADCCF0AC22CB35E10055DE1A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AD12A93022CA6E5200C65014 /* FileNotebook.swift */,
+				AD12A92F22CA6E5100C65014 /* Note.swift */,
+				AD12A93122CA6E5200C65014 /* NoteExtension.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
