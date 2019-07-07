@@ -7,8 +7,10 @@
 //
 
 import Foundation
+import CocoaLumberjack
 
 class FileNotebook {
+
     
     // MARK: - Stored Properties
     private(set) var notes: [Note]
@@ -20,10 +22,11 @@ class FileNotebook {
     public func add(_ note: Note) {
         for element in notes {
             if note.uid == element.uid {
-                print("Can't save note, because we alredy have note with UID: \(element.uid)")
+                DDLogWarn("Can't save note, because we alredy have note with UID: \(element.uid)")
                 return
             }
         }
+        DDLogInfo("Note was added. UID=\(note.uid)")
         notes.append(note)
     }
     
@@ -31,6 +34,7 @@ class FileNotebook {
     public func remove(with uid: String) {
         for (index, element) in notes.enumerated() {
             if uid == element.uid {
+                DDLogInfo("Note was removed. UID=\(uid)")
                 notes.remove(at: index)
             }
         }
@@ -47,7 +51,7 @@ class FileNotebook {
             let data = try JSONSerialization.data(withJSONObject: getJSONObject(), options: [])
             try data.write(to: archiveURL)
         } catch {
-            print("ERROR: ", error)
+            DDLogError("ERROR: \(error.localizedDescription)")
         }
     }
     /// Load JSON Data from file and update notes
@@ -59,7 +63,7 @@ class FileNotebook {
             notes.removeAll()
             jsonDicts.forEach { notes.append(Note.parse(json: $0)!) }
         } catch {
-            print("ERROR: ", error)
+            DDLogError("ERROR: \(error.localizedDescription)")
         }
     }
     
