@@ -9,5 +9,9 @@ target 'Notes' do
  pod 'CocoaLumberjack/Swift'
 
   # Pods for Notes
+  target 'NotesTests' do
+    inherit! :search_paths
+    pod 'CocoaLumberjack/Swift'
+  end
 
 end

@@ -76,7 +76,7 @@ extension Note {
         }
         /// If selfDestructionDate != nil push into dictionary
         if let selfDestructionDate = self.selfDestructionDate {
-            dictionary["date"] = Double(selfDestructionDate.timeIntervalSince1970)
+            dictionary["selfDestructionDate"] = Double(selfDestructionDate.timeIntervalSince1970)
         }
         
         return dictionary
