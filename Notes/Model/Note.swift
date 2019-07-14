@@ -1,6 +1,6 @@
 //
 //  Note.swift
-//  NoteStepikCourse
+//  Notes
 //
 //  Created by Savonevich Constantine on 6/24/19.
 //  Copyright © 2019 Savonevich Konstantin. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  FileNotebook.swift
-//  NoteStepikCourse
+//  Notes
 //
 //  Created by Savonevich Constantine on 6/29/19.
 //  Copyright © 2019 Savonevich Konstantin. All rights reserved.
@@ -58,7 +58,8 @@ class FileNotebook {
     public func loadFromFile() {
         do {
             let data = try Data(contentsOf: archiveURL, options: .mappedIfSafe)
-            let jsonDicts = try JSONSerialization.jsonObject(with: data, options: []) as! [[String: Any]]
+            let jsonDicts = try JSONSerialization.jsonObject(with: data,
+                                                             options: []) as! [[String: Any]]
             
             notes.removeAll()
             jsonDicts.forEach { notes.append(Note.parse(json: $0)!) }
