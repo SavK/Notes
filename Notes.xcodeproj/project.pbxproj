@@ -307,8 +307,8 @@
 		ADB56E1122DB580700DE08AC /* View */ = {
 			isa = PBXGroup;
 			children = (
-				ADF2670022E4C0D80008D4B0 /* ColorPaletteView.swift */,
 				ADF2670422E4F9F40008D4B0 /* ColorPickerView */,
+				ADF2670022E4C0D80008D4B0 /* ColorPaletteView.swift */,
 				AD3DDC3222E4776A00647F07 /* ColorSquareView.swift */,
 				ADF2671E22E5147B0008D4B0 /* NoteTableViewCell */,
 			);

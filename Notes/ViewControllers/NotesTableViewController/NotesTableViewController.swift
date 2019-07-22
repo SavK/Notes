@@ -23,8 +23,10 @@ class NotesTableViewController: UITableViewController {
         selectedIndex = nil
         performSegue(withIdentifier: "showEditView", sender: nil)
 
+        if tableView.isEditing {
         guard let editButton = navigationItem.leftBarButtonItem else { return }
         toggleEditingMode(forButton: editButton)
+        }
     }
     
     // MARK: - UIViewController Methods
