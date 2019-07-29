@@ -12,15 +12,15 @@ import UIKit
 extension NotesTableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let controller = segue.destination as? EditNoteViewController, segue.identifier == "showEditView" {
+        if let destination = segue.destination as? EditNoteViewController, segue.identifier == "showEditView" {
             if let index = selectedIndex {
-                controller.title = "Изменение заметки"
-                controller.note = notebook.notes[flipCellIndex(index)]
+                destination.title = "Изменение заметки"
+                destination.note = notebook.notes[flipCellIndex(index)]
                 
             } else {
-                controller.title = "Создание заметки"
+                destination.title = "Создание заметки"
             }
-            controller.delegate = self
+            destination.delegate = self
         }
     }
 }
