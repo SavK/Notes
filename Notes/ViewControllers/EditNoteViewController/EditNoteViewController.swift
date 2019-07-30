@@ -45,7 +45,9 @@ class EditNoteViewController: UIViewController {
     // MARK: - UIViewController Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupNoteData()
+        selfDestructionDatePicker.minimumDate = Date()
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow),
                                                name: UIResponder.keyboardWillShowNotification, object: nil)
