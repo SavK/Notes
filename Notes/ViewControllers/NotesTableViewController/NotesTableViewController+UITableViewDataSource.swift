@@ -47,7 +47,7 @@ extension NotesTableViewController {
             ///Delete row with animation
             removeNote.completionBlock = {
                 DDLogDebug("Removed tableViewCell at row: \(indexPath.row)")
-                DispatchQueue.main.async {
+                OperationQueue.main.addOperation {
                     UIView.animate(withDuration: 0.5) {
                         self.notes.remove(at: indexPath.row)
                         tableView.deleteRows(at: [indexPath], with: .left)

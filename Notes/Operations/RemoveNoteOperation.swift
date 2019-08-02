@@ -39,7 +39,9 @@ class RemoveNoteOperation: AsyncOperation {
     }
     
     override func main() {
-        finish()
+        defer { finish() }
+        
+        if isCancelled { return }
     }
 }
 

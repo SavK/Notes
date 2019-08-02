@@ -38,8 +38,12 @@ class SaveNoteOperation: AsyncOperation {
         addDependency(saveToBackend)
         dbQueue.addOperation(saveToDb)
     }
-    
+
     override func main() {
+        defer { finish() }
+        
+        if isCancelled { return }
+        
         if let result = saveToBackend.result {
             switch result {
             case .success:
@@ -48,8 +52,6 @@ class SaveNoteOperation: AsyncOperation {
                 self.result = false
             }
         }
-        
-        finish()
     }
 }
 

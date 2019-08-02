@@ -45,7 +45,7 @@ class NotesTableViewController: UITableViewController {
     }
     /// Load notes when viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
-
+        super.viewWillAppear(animated)
         let loadNotes = LoadNotesOperation(notebook: FileNotebook.notebook,
                                            backendQueue: OperationQueue(),
                                            dbQueue: OperationQueue())
@@ -57,7 +57,6 @@ class NotesTableViewController: UITableViewController {
 
             OperationQueue.main.addOperation {
                 self.tableView.reloadData()
-                super.viewWillAppear(animated)
             }
         }
         OperationQueue().addOperation(loadNotes)

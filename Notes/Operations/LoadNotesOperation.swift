@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CocoaLumberjack
 
 class LoadNotesOperation: AsyncOperation {
     
@@ -25,31 +26,24 @@ class LoadNotesOperation: AsyncOperation {
         
         super.init()
         
-        /// Run loadFromDb if loadFromBackend failure
-        loadFromBackend.completionBlock = {
-            switch self.loadFromBackend.result {
-            case .some(.success(let notes)):
-                self.result = notes
-            case .some(.failure(let netError)):
-                self.result = self.loadFromDb.result
-                print(netError)
-                backendQueue.addOperation(self.loadFromDb)
-            case .none:
-                backendQueue.addOperation(self.loadFromDb)
-                self.result = self.loadFromDb.result
-            }
-        }
-        
         addDependency(loadFromBackend)
         addDependency(loadFromDb)
         
         dbQueue.addOperation(loadFromBackend)
+        backendQueue.addOperation(loadFromDb)
     }
     
     override func main() {
-        if let notes = loadFromDb.result {
+        defer { finish() }
+        
+        if isCancelled { return }
+        
+        switch loadFromBackend.result {
+        case .some(.success(let notes)):
             result = notes
+        default:
+            DDLogError("loading backend ERROR: start load from DB")
+            result = loadFromDb.result
         }
-        finish()
     }
 }
