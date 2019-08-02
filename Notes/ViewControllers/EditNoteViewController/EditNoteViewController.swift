@@ -79,10 +79,23 @@ class EditNoteViewController: UIViewController {
                        selfDestructionDate: selfDestructionDate,
                        uid: note.uid)
         
+        /// Add SaveNoteOperation
         if title != "" || content != "" {
-            delegate.addNote(newNote)
+            let saveNoteOperation = SaveNoteOperation(note: newNote,
+                                                      notebook: FileNotebook.notebook,
+                                                      backendQueue: OperationQueue(),
+                                                      dbQueue: OperationQueue())
+
+            saveNoteOperation.completionBlock = {
+                OperationQueue.main.addOperation {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
+            OperationQueue().addOperation(saveNoteOperation)
+
+        } else {
+            navigationController?.popViewController(animated: true)
         }
-        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
@@ -91,7 +104,7 @@ class EditNoteViewController: UIViewController {
     
     /// Show date picker with animation
     @IBAction func onSwitchChangedState(_ sender: UISwitch) {
-
+        
         UIView.animate(withDuration: 1) {
             let oldContainerHeight = self.selfDestructionDatePickerContainer.frame.height
             self.selfDestructionDatePickerContainer.isHidden = !sender.isOn

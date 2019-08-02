@@ -7,18 +7,24 @@
 //
 
 import UIKit
+import CocoaLumberjack
 
 // MARK: - UITableViewDataSource
 extension NotesTableViewController {
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return notebook.notes.count
+    override func tableView(_ tableView: UITableView,
+                            numberOfRowsInSection section: Int) -> Int {
+        
+        return notes.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let note = notebook.notes[flipCellIndex(indexPath.row)]
+    override func tableView(_ tableView: UITableView,
+                            cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "noteCell", for: indexPath) as! NoteTableViewCell
+        let note = notes[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "noteCell",
+                                                 for: indexPath) as! NoteTableViewCell
+        
         cell.noteColorView?.backgroundColor = note.color
         cell.noteTitleLabel?.text = note.title
         cell.noteContentLabel?.text = note.content
@@ -26,10 +32,29 @@ extension NotesTableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == UITableViewCell.EditingStyle.delete {
-            notebook.remove(with: notebook.notes[flipCellIndex(indexPath.row)].uid)
-            tableView.deleteRows(at: [indexPath], with: .left)
+    override func tableView(_ tableView: UITableView,
+                            commit editingStyle: UITableViewCell.EditingStyle,
+                            forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete {
+            tableView.reloadData()
+
+            let deletedNote = notes[indexPath.row]
+            let removeNote = RemoveNoteOperation(note: deletedNote,
+                                                 notebook: noteBook,
+                                                 backendQueue: OperationQueue(),
+                                                 dbQueue: OperationQueue())
+            ///Delete row with animation
+            removeNote.completionBlock = {
+                DDLogDebug("Removed tableViewCell at row: \(indexPath.row)")
+                DispatchQueue.main.async {
+                    UIView.animate(withDuration: 0.5) {
+                        self.notes.remove(at: indexPath.row)
+                        tableView.deleteRows(at: [indexPath], with: .left)
+                    }
+                }
+            }
+            OperationQueue().addOperation(removeNote)
         }
     }
 }

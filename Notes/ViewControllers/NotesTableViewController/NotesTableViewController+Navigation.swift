@@ -15,7 +15,7 @@ extension NotesTableViewController {
         if let destination = segue.destination as? EditNoteViewController, segue.identifier == "showEditView" {
             if let index = selectedIndex {
                 destination.title = "Изменение заметки"
-                destination.note = notebook.notes[flipCellIndex(index)]
+                destination.note = notes[index]
                 
             } else {
                 destination.title = "Создание заметки"

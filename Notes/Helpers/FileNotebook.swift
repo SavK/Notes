@@ -16,6 +16,8 @@ class FileNotebook {
     let documentDirectory = FileManager.default.urls(for: .cachesDirectory,
                                                      in: .userDomainMask).first!
     
+    static let notebook = FileNotebook()
+    
     // MARK: - Initializators
     init() {
         self.notes = []
@@ -23,13 +25,13 @@ class FileNotebook {
     
     /// Add new note with UID checking
     public func add(_ note: Note) {
-        for element in notes {
-            if note.uid == element.uid {
-                DDLogWarn("Can't save note, because we alredy have note with UID: \(element.uid)")
+        for (index, element) in notes.enumerated() {
+            if element.uid == note.uid {
+                notes.remove(at: index)
+                notes.insert(note, at: 0)
                 return
             }
         }
-        DDLogInfo("Note was added. UID=\(note.uid)")
         notes.append(note)
     }
     
@@ -37,7 +39,7 @@ class FileNotebook {
     public func remove(with uid: String) {
         for (index, element) in notes.enumerated() {
             if uid == element.uid {
-                DDLogInfo("Note was removed. UID=\(uid)")
+                DDLogInfo("Note was removed from DB. UID=\(uid)")
                 notes.remove(at: index)
             }
         }
@@ -62,33 +64,33 @@ class FileNotebook {
         if let data = try? JSONSerialization.data(withJSONObject: jsonArray, options: []) {
             if FileManager.default.createFile(atPath: getCacheFileDirectory().path, contents: data,
                                               attributes: nil) {
-                DDLogInfo("Notes successfuly saved")
+                DDLogInfo("Notes successfuly saved to DB")
             } else {
                 DDLogError("ERROR: Notes didn't saved")
             }
         } else {
-             DDLogError("ERROR: Data can't serialized")
+            DDLogError("ERROR: Data can't serialized")
         }
     }
     
     /// Load JSON Data from file and update notes
     public func loadFromFile() throws {
         notes.removeAll()
-            do {
-                if let data = try? Data(contentsOf: getCacheFileDirectory()),
-                    let jsonData = try JSONSerialization.jsonObject(with: data,
-                                                                    options: []) as? [[String: Any]] {
-            
-                    for noteJson in jsonData {
-                        guard let note = Note.parse(json: noteJson) else { return }
-                        self.add(note)
-                    }
-                } else {
-                    DDLogError("Can't load notes from file.")
+        do {
+            if let data = try? Data(contentsOf: getCacheFileDirectory()),
+                let jsonData = try JSONSerialization.jsonObject(with: data,
+                                                                options: []) as? [[String: Any]] {
+                
+                for noteJson in jsonData {
+                    guard let note = Note.parse(json: noteJson) else { return }
+                    self.add(note)
                 }
-            } catch {
-                DDLogError("ERROR: \(error.localizedDescription)")
+            } else {
+                DDLogError("Can't load notes from file.")
             }
+        } catch {
+            DDLogError("ERROR: \(error.localizedDescription)")
+        }
     }
     
     /// Convert notes into JSON Object

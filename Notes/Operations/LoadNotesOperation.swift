@@ -9,49 +9,47 @@
 import Foundation
 
 class LoadNotesOperation: AsyncOperation {
-    private let notebook: FileNotebook
-    private let loadFromDb: LoadNotesDBOperation
-    private var loadFromBackend: LoadNotesBackendOperation?
     
-    private(set) var result: [Note] = []
+    // MARK: Private Properties
+    private var loadFromBackend: LoadNotesBackendOperation
+    private var loadFromDb: LoadNotesDBOperation
+    
+    private(set) var result: [Note]? = []
     
     init(notebook: FileNotebook,
          backendQueue: OperationQueue,
          dbQueue: OperationQueue) {
-        self.notebook = notebook
         
+        loadFromBackend = LoadNotesBackendOperation()
         loadFromDb = LoadNotesDBOperation(notebook: notebook)
         
         super.init()
         
-        loadFromDb.completionBlock = {
-            let loadFromBackend = LoadNotesBackendOperation()
-            self.loadFromBackend = loadFromBackend
-            self.addDependency(loadFromBackend)
-            backendQueue.addOperation(loadFromBackend)
+        /// Run loadFromDb if loadFromBackend failure
+        loadFromBackend.completionBlock = {
+            switch self.loadFromBackend.result {
+            case .some(.success(let notes)):
+                self.result = notes
+            case .some(.failure(let netError)):
+                self.result = self.loadFromDb.result
+                print(netError)
+                backendQueue.addOperation(self.loadFromDb)
+            case .none:
+                backendQueue.addOperation(self.loadFromDb)
+                self.result = self.loadFromDb.result
+            }
         }
         
+        addDependency(loadFromBackend)
         addDependency(loadFromDb)
-        dbQueue.addOperation(loadFromDb)
+        
+        dbQueue.addOperation(loadFromBackend)
     }
     
     override func main() {
-        guard let loadFromBackend = loadFromBackend else {
-            result = loadFromDb.result
-            finish()
-            return
-        }
-        
-        switch loadFromBackend.result {
-        case .some(.success(let notes)):
+        if let notes = loadFromDb.result {
             result = notes
-        case .some(.failure(let netError)):
-            result = loadFromDb.result
-            print(netError)
-        case .none:
-            result = loadFromDb.result
         }
-        
         finish()
     }
 }

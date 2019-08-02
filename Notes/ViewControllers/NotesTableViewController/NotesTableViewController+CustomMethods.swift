@@ -11,11 +11,6 @@ import UIKit
 // MARK: - Custom Methods
 extension NotesTableViewController {
     
-    /// Flip the value from end to beginning (new/edited cell added to first position)
-    func flipCellIndex(_ currentIndex: Int) -> Int {
-        return notebook.notes.count - currentIndex - 1
-    }
-    
     func toggleEditingMode(forButton button: UIBarButtonItem) {
         if !tableView.isEditing {
             tableView.setEditing(true, animated: true)

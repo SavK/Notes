@@ -9,12 +9,14 @@
 import Foundation
 
 class SaveNoteOperation: AsyncOperation {
+    
+    // MARK: Private Properties
     private let note: Note
     private let notebook: FileNotebook
     private let saveToDb: SaveNoteDBOperation
-    private var saveToBackend: SaveNotesBackendOperation?
+    private var saveToBackend: SaveNotesBackendOperation
     
-    private(set) var result: Bool = false
+    private(set) var result: Bool? = false
     
     init(note: Note,
          notebook: FileNotebook,
@@ -24,39 +26,27 @@ class SaveNoteOperation: AsyncOperation {
         self.notebook = notebook
         
         saveToDb = SaveNoteDBOperation(note: note, notebook: notebook)
+        saveToBackend = SaveNotesBackendOperation(notes: notebook.notes)
         
         super.init()
         
-        saveToDb.completionBlock = { [weak self] in
-            guard let self = self else {
-                return
-            }
-            
-            let saveToBackend = SaveNotesBackendOperation(notes: notebook.notes)
-            self.saveToBackend = saveToBackend
-            self.addDependency(saveToBackend)
-            backendQueue.addOperation(saveToBackend)
+        saveToDb.completionBlock = {
+            backendQueue.addOperation(self.saveToBackend)
         }
         
         addDependency(saveToDb)
+        addDependency(saveToBackend)
         dbQueue.addOperation(saveToDb)
     }
     
     override func main() {
-        guard let saveToBackend = saveToBackend else {
-            result = saveToDb.result
-            finish()
-            return
-        }
-        
-        switch saveToBackend.result {
-        case .some(.success):
-            result = true
-        case .some(.failure(let netError)):
-            result = saveToDb.result
-            print(netError)
-        case .none:
-            result = saveToDb.result
+        if let result = saveToBackend.result {
+            switch result {
+            case .success:
+                self.result = true
+            case .failure:
+                self.result = false
+            }
         }
         
         finish()

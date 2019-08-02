@@ -9,51 +9,36 @@
 import Foundation
 
 class RemoveNoteOperation: AsyncOperation {
+    
+    // MARK: Private Properties
     private let note: Note
-    private let notebook: FileNotebook
+    private var saveToBackend: SaveNotesBackendOperation
     private let removeFromDb: RemoveNoteDBOperation
-    private var saveToBackend: SaveNotesBackendOperation?
     
-    private(set) var result: Bool = false
-    
-    init(note: Note, notebook: FileNotebook,
+    init(note: Note,
+         notebook: FileNotebook,
          backendQueue: OperationQueue,
          dbQueue: OperationQueue) {
+        
         self.note = note
-        self.notebook = notebook
         
         removeFromDb = RemoveNoteDBOperation(note: note, notebook: notebook)
+        saveToBackend = SaveNotesBackendOperation(notes: notebook.notes)
+        
         
         super.init()
         
         removeFromDb.completionBlock = {
-            let saveToBackend = SaveNotesBackendOperation(notes: notebook.notes)
-            self.saveToBackend = saveToBackend
-            self.addDependency(saveToBackend)
-            backendQueue.addOperation(saveToBackend)
+            backendQueue.addOperation(self.saveToBackend)
         }
         
         addDependency(removeFromDb)
+        addDependency(saveToBackend)
+        
         dbQueue.addOperation(removeFromDb)
     }
     
     override func main() {
-        guard let saveToBackend = saveToBackend else {
-            result = removeFromDb.result
-            finish()
-            return
-        }
-        
-        switch saveToBackend.result {
-        case .some(.success):
-            result = true
-        case .some(.failure(let netError)):
-            result = removeFromDb.result
-            print(netError)
-        case .none:
-            result = removeFromDb.result
-        }
-        
         finish()
     }
 }

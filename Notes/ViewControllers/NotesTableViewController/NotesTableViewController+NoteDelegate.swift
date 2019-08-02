@@ -12,8 +12,8 @@ import Foundation
 extension NotesTableViewController: NoteDelegate {
     
     func addNote(_ note: Note) {
-        notebook.remove(with: note.uid)
-        notebook.add(note)
+        noteBook.remove(with: note.uid)
+        noteBook.add(note)
         if let index = selectedIndex {
             tableView.moveRow(at: IndexPath(row: index, section: 0), to: IndexPath(row: 0, section: 0))
             tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .right)

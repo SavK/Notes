@@ -7,12 +7,18 @@
 //
 
 import Foundation
+import CocoaLumberjack
 
 class LoadNotesDBOperation: BaseDBOperation {
-    private(set) var result: [Note] = []
+    private(set) var result: [Note]?
     
     override func main() {
-        try? notebook.loadFromFile()
+        do {
+            try notebook.loadFromFile()
+            DDLogDebug("Load notes from db: SUCCESS")
+        } catch {
+          DDLogDebug("Load notes from db: ERROR (\(error))")
+        }
         result = notebook.notes
         finish()
     }

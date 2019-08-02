@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import CocoaLumberjack
 
 class NotesTableViewController: UITableViewController {
     
     // MARK: - Properties
-    var notebook = FileNotebook()
+    let noteBook = FileNotebook.notebook
     var selectedIndex: Int?
+    var notes: [Note] = []
     
     // MARK: - IB Actions
     @IBAction func editButtonTapped(_ sender: UIBarButtonItem) {
@@ -33,7 +35,6 @@ class NotesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        try? notebook.loadFromFile()
         tableView.register(UINib(nibName: "NoteTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "noteCell")
         
@@ -42,11 +43,24 @@ class NotesTableViewController: UITableViewController {
                                                name: UIApplication.willResignActiveNotification,
                                                object: nil)
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    /// Load notes when viewWillAppear
+    override func viewWillAppear(_ animated: Bool) {
+
+        let loadNotes = LoadNotesOperation(notebook: FileNotebook.notebook,
+                                           backendQueue: OperationQueue(),
+                                           dbQueue: OperationQueue())
         
-        notebook.saveToFile()
+        loadNotes.completionBlock = {
+            let loadedNotes = loadNotes.result ?? []
+            DDLogDebug(" \(loadedNotes.count) notes was uploaded")
+            self.notes = loadedNotes
+
+            OperationQueue.main.addOperation {
+                self.tableView.reloadData()
+                super.viewWillAppear(animated)
+            }
+        }
+        OperationQueue().addOperation(loadNotes)
     }
 }
 
