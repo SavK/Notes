@@ -62,40 +62,7 @@ class EditNoteViewController: UIViewController {
     
     // MARK: - IB Actions
     @IBAction func saveButtonTapped(_ sender: Any) {
-        guard
-            let title = noteTitleTextField.text,
-            let content = noteContentTextView.text,
-            let color = findSelectedColor()
-            else { return }
-        
-        let selfDestructionDate: Date?
-        selfDestructionDate = selfDestructionDatePickerContainer.isHidden ? nil : selfDestructionDatePicker.date
-        
-        let newNote: Note
-        newNote = Note(title: title,
-                       content: content,
-                       importance: .normal,
-                       color: color,
-                       selfDestructionDate: selfDestructionDate,
-                       uid: note.uid)
-        
-        /// Add SaveNoteOperation
-        if title != "" || content != "" {
-            let saveNoteOperation = SaveNoteOperation(note: newNote,
-                                                      notebook: FileNotebook.notebook,
-                                                      backendQueue: OperationQueue(),
-                                                      dbQueue: OperationQueue())
-
-            saveNoteOperation.completionBlock = {
-                OperationQueue.main.addOperation {
-                    self.navigationController?.popViewController(animated: true)
-                }
-            }
-            OperationQueue().addOperation(saveNoteOperation)
-
-        } else {
-            navigationController?.popViewController(animated: true)
-        }
+        saveNoteData()
     }
     
     @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {

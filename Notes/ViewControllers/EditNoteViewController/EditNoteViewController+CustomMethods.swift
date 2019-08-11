@@ -30,30 +30,6 @@ extension EditNoteViewController {
         return nil
     }
     
-    func setupNoteData() {
-        noteTitleTextField.text = note.title
-        noteContentTextView.text = note.content
-        
-        if let date = note.selfDestructionDate {
-            selfDestructionDatePickerSwitch.isOn = true
-            selfDestructionDatePicker.date = date
-        } else {
-            selfDestructionDatePickerSwitch.isOn = false
-            selfDestructionDatePickerContainer.isHidden = true
-        }
-        
-        switch note.color {
-        case .white:
-            whiteSquare.isSelect = true
-        case .red:
-            redSquare.isSelect = true
-        case .green:
-            greenSquare.isSelect = true
-        default:
-            color = getHsbColor(of: note.color)
-        }
-    }
-    
     func getHsbColor(of color: UIColor) -> [CGFloat] {
         var h: CGFloat = 0
         var s: CGFloat = 0

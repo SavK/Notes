@@ -114,8 +114,6 @@ class NoteExtensionTests: XCTestCase {
     }
     
     private func getNoteThroughJsonFrom(_ note: Note) -> Note? {
-        print(note.json)
-        print(Note.parse(json: note.json)!)
         return Note.parse(json: note.json)
     }
 }

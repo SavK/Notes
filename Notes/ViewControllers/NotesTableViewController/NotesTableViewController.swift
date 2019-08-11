@@ -7,12 +7,14 @@
 //
 
 import UIKit
-import CocoaLumberjack
 
 class NotesTableViewController: UITableViewController {
     
     // MARK: - Properties
     let noteBook = FileNotebook.notebook
+    var activityIndicator = UIActivityIndicatorView(style: .gray)
+    let dbOperationQueue = OperationQueue()
+    let backendOperationQueue = OperationQueue()
     var selectedIndex: Int?
     var notes: [Note] = []
     
@@ -34,6 +36,9 @@ class NotesTableViewController: UITableViewController {
     // MARK: - UIViewController Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        dbOperationQueue.maxConcurrentOperationCount = 1
+        backendOperationQueue.maxConcurrentOperationCount = 1
         
         tableView.register(UINib(nibName: "NoteTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "noteCell")
@@ -42,24 +47,16 @@ class NotesTableViewController: UITableViewController {
                                                selector: #selector(saveNotes),
                                                name: UIApplication.willResignActiveNotification,
                                                object: nil)
-    }
-    /// Load notes when viewWillAppear
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        let loadNotes = LoadNotesOperation(notebook: FileNotebook.notebook,
-                                           backendQueue: OperationQueue(),
-                                           dbQueue: OperationQueue())
         
-        loadNotes.completionBlock = {
-            let loadedNotes = loadNotes.result ?? []
-            DDLogDebug(" \(loadedNotes.count) notes was uploaded")
-            self.notes = loadedNotes
-
-            OperationQueue.main.addOperation {
-                self.tableView.reloadData()
-            }
-        }
-        OperationQueue().addOperation(loadNotes)
+        activityIndicator.hidesWhenStopped = true
+        view.addSubview(activityIndicator)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        loadNotesData()
+        activityIndicator.center = self.tableView.center
     }
 }
 

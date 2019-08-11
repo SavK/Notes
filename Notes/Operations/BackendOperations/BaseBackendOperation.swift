@@ -9,6 +9,7 @@
 import Foundation
 
 class BaseBackendOperation: AsyncOperation {
+    let apiGitHubURL = "https://api.github.com/gists"
     
     override init() {
         super.init()

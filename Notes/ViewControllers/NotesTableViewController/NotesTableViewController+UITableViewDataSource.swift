@@ -38,23 +38,7 @@ extension NotesTableViewController {
         
         if editingStyle == .delete {
             tableView.reloadData()
-
-            let deletedNote = notes[indexPath.row]
-            let removeNote = RemoveNoteOperation(note: deletedNote,
-                                                 notebook: noteBook,
-                                                 backendQueue: OperationQueue(),
-                                                 dbQueue: OperationQueue())
-            ///Delete row with animation
-            removeNote.completionBlock = {
-                DDLogDebug("Removed tableViewCell at row: \(indexPath.row)")
-                OperationQueue.main.addOperation {
-                    UIView.animate(withDuration: 0.5) {
-                        self.notes.remove(at: indexPath.row)
-                        tableView.deleteRows(at: [indexPath], with: .left)
-                    }
-                }
-            }
-            OperationQueue().addOperation(removeNote)
+            removeNoteData(at: indexPath)
         }
     }
 }

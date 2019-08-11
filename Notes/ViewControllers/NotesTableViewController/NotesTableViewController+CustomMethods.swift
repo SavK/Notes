@@ -22,4 +22,21 @@ extension NotesTableViewController {
             button.tintColor = view.tintColor
         }
     }
+    
+    func requestToken() {
+        let authenticationViewController = AuthenticationViewController()
+        
+        authenticationViewController.delegate = self
+        present(authenticationViewController, animated: false, completion: nil)
+    }
+    
+    func activityIndicatorStart() {
+        self.activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+    }
+    
+    func activityIndicatorStop() {
+        self.activityIndicator.stopAnimating()
+        UIApplication.shared.endIgnoringInteractionEvents()
+    }
 }

@@ -31,6 +31,7 @@ class SaveNoteOperation: AsyncOperation {
         super.init()
         
         saveToDb.completionBlock = {
+            self.saveToBackend.notes = notebook.notes
             backendQueue.addOperation(self.saveToBackend)
         }
         

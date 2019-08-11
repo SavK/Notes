@@ -40,9 +40,9 @@ class LoadNotesOperation: AsyncOperation {
         
         switch loadFromBackend.result {
         case .some(.success(let notes)):
+            DDLogDebug("loading backend SUCCESS")
             result = notes
         default:
-            DDLogError("loading backend ERROR: start load from DB")
             result = loadFromDb.result
         }
     }

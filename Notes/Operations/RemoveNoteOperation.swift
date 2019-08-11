@@ -29,6 +29,7 @@ class RemoveNoteOperation: AsyncOperation {
         super.init()
         
         removeFromDb.completionBlock = {
+            self.saveToBackend.notes = notebook.notes
             backendQueue.addOperation(self.saveToBackend)
         }
         

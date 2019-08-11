@@ -89,7 +89,34 @@ class FileNotebook {
                 DDLogError("Can't load notes from file.")
             }
         } catch {
-            DDLogError("ERROR: \(error.localizedDescription)")
+            DDLogError("ERROR load from file: \(error.localizedDescription)")
+        }
+    }
+    
+    static func convertNoteFromJson(data: Data) -> [Note] {
+        var arrayOfNotes: [Note] = []
+        do {
+            guard let notes = try JSONSerialization.jsonObject(with: data,
+                                                               options: []) as? [[String:Any]]
+                else {
+                    return arrayOfNotes
+            }
+            
+            arrayOfNotes = notes.compactMap { Note.parse(json: $0) }
+        } catch {
+            DDLogError("ERROR convert data from JSON: \(error.localizedDescription)")
+        }
+        return arrayOfNotes
+    }
+    
+    static func convertNoteToJsonData(notes: [Note]) -> Data {
+        do {
+            let notes = notes.compactMap { $0.json }
+            let data = try JSONSerialization.data(withJSONObject: notes, options: [])
+            return data
+        } catch {
+            DDLogError("ERROR convert JSON from note: \(error.localizedDescription)")
+            return Data()
         }
     }
     

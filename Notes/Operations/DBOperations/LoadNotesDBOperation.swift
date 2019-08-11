@@ -17,7 +17,7 @@ class LoadNotesDBOperation: BaseDBOperation {
             try notebook.loadFromFile()
             DDLogDebug("Load notes from db: SUCCESS")
         } catch {
-          DDLogDebug("Load notes from db: ERROR (\(error))")
+          DDLogError("Load notes from db: ERROR (\(error))")
         }
         result = notebook.notes
         finish()
