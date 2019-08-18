@@ -8,12 +8,6 @@
 
 import UIKit
 
-enum Importance: String {
-    case unimportant
-    case normal
-    case important
-}
-
 struct Note {
     let title: String
     let content: String

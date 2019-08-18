@@ -15,9 +15,12 @@ extension NotesTableViewController {
     func loadNotesData() {        
         let loadNotes = LoadNotesOperation(notebook: FileNotebook.notebook,
                                            backendQueue: backendOperationQueue,
-                                           dbQueue: dbOperationQueue)
+                                           dbQueue: dbOperationQueue,
+                                           backgroundContext: backgroundContext)
         
-        if !UserSettings.shared.isLoginedInGitHub {
+        let userSettings = UserSettings.shared
+        if !userSettings.isLoginedInGitHub && userSettings.isInternetConnectionOn {
+            sleep(1)
             self.requestToken()
         }
         
@@ -26,15 +29,11 @@ extension NotesTableViewController {
         }
         
         loadNotes.completionBlock = {
-            OperationQueue.main.addOperation {
-                self.activityIndicatorStop()
-            }
-            
             let loadedNotes = loadNotes.result ?? []
             DDLogDebug(" \(loadedNotes.count) notes was uploaded")
             self.notes = loadedNotes
-            
             OperationQueue.main.addOperation {
+                self.activityIndicatorStop()
                 self.tableView.reloadData()
             }
         }
@@ -46,7 +45,8 @@ extension NotesTableViewController {
         let removeNote = RemoveNoteOperation(note: deletedNote,
                                              notebook: noteBook,
                                              backendQueue: backendOperationQueue,
-                                             dbQueue: dbOperationQueue)
+                                             dbQueue: dbOperationQueue,
+                                             backgroundContext: backgroundContext)
         
         OperationQueue.main.addOperation {
             self.activityIndicatorStart()

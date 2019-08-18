@@ -16,8 +16,7 @@ extension AuthenticationViewController {
         
         urlComponents.queryItems = [
             URLQueryItem(name: "client_id", value: "\(info.clientId)"),
-            URLQueryItem(name: "scope", value: "gist")
-        ]
+            URLQueryItem(name: "scope", value: "gist")]
         
         guard let url = urlComponents.url else { return nil }
         return URLRequest(url: url)

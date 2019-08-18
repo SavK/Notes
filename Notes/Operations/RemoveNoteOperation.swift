@@ -6,11 +6,11 @@
 //  Copyright © 2019 Savonevich Konstantin. All rights reserved.
 //
 
-import Foundation
+import CoreData
 
 class RemoveNoteOperation: AsyncOperation {
     
-    // MARK: Private Properties
+    // MARK: - Private Properties
     private let note: Note
     private var saveToBackend: SaveNotesBackendOperation
     private let removeFromDb: RemoveNoteDBOperation
@@ -18,21 +18,25 @@ class RemoveNoteOperation: AsyncOperation {
     init(note: Note,
          notebook: FileNotebook,
          backendQueue: OperationQueue,
-         dbQueue: OperationQueue) {
+         dbQueue: OperationQueue,
+         backgroundContext: NSManagedObjectContext) {
         
         self.note = note
         
-        removeFromDb = RemoveNoteDBOperation(note: note, notebook: notebook)
         saveToBackend = SaveNotesBackendOperation(notes: notebook.notes)
+        removeFromDb = RemoveNoteDBOperation(note: note,
+                                             notebook: notebook,
+                                             context: backgroundContext)
+        
         
         
         super.init()
-        
+        /// Save to backend after note was removed
         removeFromDb.completionBlock = {
             self.saveToBackend.notes = notebook.notes
             backendQueue.addOperation(self.saveToBackend)
         }
-        
+        /// Run Operation after dependencies
         addDependency(removeFromDb)
         addDependency(saveToBackend)
         

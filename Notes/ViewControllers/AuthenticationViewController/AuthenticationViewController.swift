@@ -11,9 +11,7 @@ import WebKit
 
 final class AuthenticationViewController: UIViewController {
     
-    weak var delegate: AuthenticationViewControllerDelegate?
-    
-    // MARK: Private Properties
+    // MARK: - Properties
     private var access_token = ""
     
     let webView = WKWebView()
@@ -25,6 +23,7 @@ final class AuthenticationViewController: UIViewController {
             postRequest()
         }
     }
+    weak var delegate: AuthenticationViewControllerDelegate?
     
     // MARK: - UIViewController Methods
     override func viewDidLoad() {
@@ -34,6 +33,11 @@ final class AuthenticationViewController: UIViewController {
         guard let request = codeGetRequest else { return }
         webView.load(request)
         webView.navigationDelegate = self
+        /// Stop auth if internet connection is lost
+        guard UserSettings.shared.isInternetConnectionOn else {
+            self.dismiss(animated: true, completion: nil)
+            return
+        }
     }
     
     override func viewDidLayoutSubviews() {

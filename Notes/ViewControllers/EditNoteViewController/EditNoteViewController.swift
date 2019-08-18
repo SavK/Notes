@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class EditNoteViewController: UIViewController {
     
@@ -26,6 +27,8 @@ class EditNoteViewController: UIViewController {
     @IBOutlet weak var redSquare: ColorSquareView!
     @IBOutlet weak var greenSquare: ColorSquareView!
     @IBOutlet weak var customSquare: ColorSquareView!
+    /// CoreData context
+    var backgroundContext: NSManagedObjectContext!
     
     // MARK: - Properties
     var note = Note(title: "", content: "", importance: .normal, selfDestructionDate: nil)

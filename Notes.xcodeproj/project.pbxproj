@@ -20,6 +20,10 @@
 		AD010E4922F1EE3100B1DEBA /* SaveNotesBackendOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD010E4822F1EE3100B1DEBA /* SaveNotesBackendOperation.swift */; };
 		AD010E4B22F1EE5000B1DEBA /* LoadNotesBackendOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD010E4A22F1EE5000B1DEBA /* LoadNotesBackendOperation.swift */; };
 		AD010E4F22F1EE8E00B1DEBA /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD010E4E22F1EE8E00B1DEBA /* NetworkError.swift */; };
+		AD02EBE223097B3A00CFD170 /* Notebook.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AD02EBE023097B3A00CFD170 /* Notebook.xcdatamodeld */; };
+		AD02EBED23097C2600CFD170 /* NoteEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD02EBEB23097C2600CFD170 /* NoteEntity+CoreDataProperties.swift */; };
+		AD02EBEE23097C2600CFD170 /* NoteEntity+Methods.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD02EBEC23097C2600CFD170 /* NoteEntity+Methods.swift */; };
+		AD02EBF023097C3E00CFD170 /* NoteEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD02EBEF23097C3D00CFD170 /* NoteEntity+CoreDataClass.swift */; };
 		AD30BAAC22D3802E00C379E6 /* NoteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD30BAAB22D3802E00C379E6 /* NoteTests.swift */; };
 		AD3DDC0622E2417800647F07 /* ImageGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3DDC0522E2417800647F07 /* ImageGallery.swift */; };
 		AD3DDC0922E24F2A00647F07 /* ImageGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3DDC0822E24F2A00647F07 /* ImageGalleryViewController.swift */; };
@@ -67,6 +71,8 @@
 		ADA7B5A42300B5B3008DEEC2 /* AuthenticationViewController+CustomMethos.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA7B5A32300B5B3008DEEC2 /* AuthenticationViewController+CustomMethos.swift */; };
 		ADABEC5C22D368C4006D5167 /* FileNotebookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADABEC5922D368C3006D5167 /* FileNotebookTests.swift */; };
 		ADABEC5E22D368C4006D5167 /* NoteExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADABEC5B22D368C4006D5167 /* NoteExtensionTests.swift */; };
+		ADC4B26F2308B1E800CC815D /* UIClolor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC4B26E2308B1E800CC815D /* UIClolor+Extension.swift */; };
+		ADC4B2712308B5D200CC815D /* Importance.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC4B2702308B5D200CC815D /* Importance.swift */; };
 		ADCCF0C422D0BF340055DE1A /* NoteExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCCF0C122D0BF330055DE1A /* NoteExtension.swift */; };
 		ADCCF0C522D0BF340055DE1A /* FileNotebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCCF0C222D0BF340055DE1A /* FileNotebook.swift */; };
 		ADCCF0C622D0BF340055DE1A /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCCF0C322D0BF340055DE1A /* Note.swift */; };
@@ -116,6 +122,10 @@
 		AD010E4822F1EE3100B1DEBA /* SaveNotesBackendOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveNotesBackendOperation.swift; sourceTree = "<group>"; };
 		AD010E4A22F1EE5000B1DEBA /* LoadNotesBackendOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadNotesBackendOperation.swift; sourceTree = "<group>"; };
 		AD010E4E22F1EE8E00B1DEBA /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		AD02EBE123097B3A00CFD170 /* Notebook.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Notebook.xcdatamodel; sourceTree = "<group>"; };
+		AD02EBEB23097C2600CFD170 /* NoteEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NoteEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AD02EBEC23097C2600CFD170 /* NoteEntity+Methods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NoteEntity+Methods.swift"; sourceTree = "<group>"; };
+		AD02EBEF23097C3D00CFD170 /* NoteEntity+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NoteEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		AD30BAAB22D3802E00C379E6 /* NoteTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteTests.swift; sourceTree = "<group>"; };
 		AD3DDC0522E2417800647F07 /* ImageGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGallery.swift; sourceTree = "<group>"; };
 		AD3DDC0822E24F2A00647F07 /* ImageGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryViewController.swift; sourceTree = "<group>"; };
@@ -160,11 +170,14 @@
 		AD9F0A682300298B00CD366D /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		AD9F0A6A230029C200CD366D /* GitHubToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubToken.swift; sourceTree = "<group>"; };
 		ADA3557A22D22C3A00AE2E31 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		ADA48A302309849E00D7BD00 /* Notebook 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Notebook 2.xcdatamodel"; sourceTree = "<group>"; };
 		ADA7B59F2300B455008DEEC2 /* AuthenticationViewController+WKNavigationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthenticationViewController+WKNavigationDelegate.swift"; sourceTree = "<group>"; };
 		ADA7B5A12300B511008DEEC2 /* AuthenticationViewController+Requests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthenticationViewController+Requests.swift"; sourceTree = "<group>"; };
 		ADA7B5A32300B5B3008DEEC2 /* AuthenticationViewController+CustomMethos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthenticationViewController+CustomMethos.swift"; sourceTree = "<group>"; };
 		ADABEC5922D368C3006D5167 /* FileNotebookTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileNotebookTests.swift; sourceTree = "<group>"; };
 		ADABEC5B22D368C4006D5167 /* NoteExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteExtensionTests.swift; sourceTree = "<group>"; };
+		ADC4B26E2308B1E800CC815D /* UIClolor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIClolor+Extension.swift"; sourceTree = "<group>"; };
+		ADC4B2702308B5D200CC815D /* Importance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Importance.swift; sourceTree = "<group>"; };
 		ADCCF0C122D0BF330055DE1A /* NoteExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteExtension.swift; sourceTree = "<group>"; };
 		ADCCF0C222D0BF340055DE1A /* FileNotebook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileNotebook.swift; sourceTree = "<group>"; };
 		ADCCF0C322D0BF340055DE1A /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
@@ -354,7 +367,9 @@
 			isa = PBXGroup;
 			children = (
 				AD8921EE22DAF82B0044D849 /* App */,
+				ADC4B25C2308A77700CC815D /* DataBase */,
 				AD010E4C22F1EE7A00B1DEBA /* Errors */,
+				ADC4B26C2308B1CB00CC815D /* Extensions */,
 				AD3DDC0722E24DC500647F07 /* Helpers */,
 				ADCCF0AC22CB35E10055DE1A /* Model */,
 				AD010E3222F1ED0500B1DEBA /* Operations */,
@@ -443,12 +458,32 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		ADC4B25C2308A77700CC815D /* DataBase */ = {
+			isa = PBXGroup;
+			children = (
+				AD02EBE023097B3A00CFD170 /* Notebook.xcdatamodeld */,
+				AD02EBEF23097C3D00CFD170 /* NoteEntity+CoreDataClass.swift */,
+				AD02EBEB23097C2600CFD170 /* NoteEntity+CoreDataProperties.swift */,
+				AD02EBEC23097C2600CFD170 /* NoteEntity+Methods.swift */,
+			);
+			path = DataBase;
+			sourceTree = "<group>";
+		};
+		ADC4B26C2308B1CB00CC815D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				ADC4B26E2308B1E800CC815D /* UIClolor+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		ADCCF0AC22CB35E10055DE1A /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				AD9F0A6C23002A2300CD366D /* GitHub Gists */,
 				ADCCF0C322D0BF340055DE1A /* Note.swift */,
 				ADCCF0C122D0BF330055DE1A /* NoteExtension.swift */,
+				ADC4B2702308B5D200CC815D /* Importance.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -688,7 +723,9 @@
 				AD3DDC0622E2417800647F07 /* ImageGallery.swift in Sources */,
 				ADF2671322E5098F0008D4B0 /* NotesTableViewController+UITableViewDataSource.swift in Sources */,
 				AD3DDC1922E25DC800647F07 /* ImageGalleryViewController+UICollectionViewDelegate.swift in Sources */,
+				AD02EBEE23097C2600CFD170 /* NoteEntity+Methods.swift in Sources */,
 				AD54628222FF4B2E00568F89 /* NotesTableViewController+DataMethods.swift in Sources */,
+				AD02EBF023097C3E00CFD170 /* NoteEntity+CoreDataClass.swift in Sources */,
 				AD3DDC0922E24F2A00647F07 /* ImageGalleryViewController.swift in Sources */,
 				ADF2670622E4FA300008D4B0 /* ColorPickerView+DrawMethods.swift in Sources */,
 				AD010E3822F1ED6200B1DEBA /* RemoveNoteOperation.swift in Sources */,
@@ -707,6 +744,7 @@
 				AD3DDC3322E4776A00647F07 /* ColorSquareView.swift in Sources */,
 				AD9F0A6B230029C200CD366D /* GitHubToken.swift in Sources */,
 				AD3DDC3722E48FA000647F07 /* EditNoteViewController+Selectors.swift in Sources */,
+				ADC4B2712308B5D200CC815D /* Importance.swift in Sources */,
 				ADF2671522E509A20008D4B0 /* NotesTableViewController+UITableViewDelegate.swift in Sources */,
 				ADA7B5A22300B511008DEEC2 /* AuthenticationViewController+Requests.swift in Sources */,
 				AD3DDC1722E25CD400647F07 /* ImageGalleryViewController+UICollectionViewDelegateFlowLayout.swift in Sources */,
@@ -716,6 +754,7 @@
 				AD54627722FF3EDA00568F89 /* UserSettings.swift in Sources */,
 				ADF2671722E511D80008D4B0 /* NotesTableViewController+Selectors.swift in Sources */,
 				AD010E4322F1EDF000B1DEBA /* RemoveNoteDBOperation.swift in Sources */,
+				AD02EBE223097B3A00CFD170 /* Notebook.xcdatamodeld in Sources */,
 				AD010E3622F1ED4400B1DEBA /* LoadNotesOperation.swift in Sources */,
 				ADF266FF22E4BDF60008D4B0 /* EditNoteViewController+CustomMethods.swift in Sources */,
 				AD010E3A22F1ED8200B1DEBA /* AsyncOperation.swift in Sources */,
@@ -726,11 +765,13 @@
 				AD3DDC2822E470B800647F07 /* ColorPickerViewController+UIGestureRecognizerDelegate.swift in Sources */,
 				ADF2670122E4C0D80008D4B0 /* ColorPaletteView.swift in Sources */,
 				ADF2670F22E503640008D4B0 /* NotesTableViewController+NoteDelegate.swift in Sources */,
+				ADC4B26F2308B1E800CC815D /* UIClolor+Extension.swift in Sources */,
 				AD54627322FF3E8000568F89 /* GitHubGist.swift in Sources */,
 				ADF2670322E4E72A0008D4B0 /* ColorPickerView.swift in Sources */,
 				AD3DDC1122E25B6D00647F07 /* ImageGalleryViewController+UINavigationControllerDelegate.swift in Sources */,
 				ADA7B5A02300B455008DEEC2 /* AuthenticationViewController+WKNavigationDelegate.swift in Sources */,
 				ADCCF0C522D0BF340055DE1A /* FileNotebook.swift in Sources */,
+				AD02EBED23097C2600CFD170 /* NoteEntity+CoreDataProperties.swift in Sources */,
 				AD010E4F22F1EE8E00B1DEBA /* NetworkError.swift in Sources */,
 				ADF2671122E504A70008D4B0 /* NoteTableViewCell.swift in Sources */,
 				AD4960A722CA6CFC005E5FE0 /* AppDelegate.swift in Sources */,
@@ -1109,6 +1150,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		AD02EBE023097B3A00CFD170 /* Notebook.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				ADA48A302309849E00D7BD00 /* Notebook 2.xcdatamodel */,
+				AD02EBE123097B3A00CFD170 /* Notebook.xcdatamodel */,
+			);
+			currentVersion = AD02EBE123097B3A00CFD170 /* Notebook.xcdatamodel */;
+			path = Notebook.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = AD49609B22CA6CFB005E5FE0 /* Project object */;
 }

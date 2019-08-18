@@ -12,14 +12,16 @@ import UIKit
 extension NotesTableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination = segue.destination as? EditNoteViewController, segue.identifier == "showEditView" {
+        if let destination = segue.destination as? EditNoteViewController,
+            segue.identifier == "showEditView" {
+            
             if let index = selectedIndex {
                 destination.title = "Изменение заметки"
                 destination.note = notes[index]
-                
             } else {
                 destination.title = "Создание заметки"
             }
+            destination.backgroundContext = backgroundContext
             destination.delegate = self
         }
     }

@@ -7,19 +7,33 @@
 //
 
 import Foundation
+import CoreData
 import CocoaLumberjack
 
 class LoadNotesDBOperation: BaseDBOperation {
     private(set) var result: [Note]?
     
     override func main() {
-        do {
-            try notebook.loadFromFile()
-            DDLogDebug("Load notes from db: SUCCESS")
-        } catch {
-          DDLogError("Load notes from db: ERROR (\(error))")
+        let request: NSFetchRequest<NoteEntity> = NoteEntity.fetchRequest()
+        var fetchedNotes: [NoteEntity] = []
+        
+        backgroundContext.performAndWait {
+            do {
+                fetchedNotes = try backgroundContext.fetch(request)
+            } catch {
+                let fetchError = error as NSError
+                DDLogError("Fetch request ERROR: \(fetchError), \(fetchError.userInfo)")
+            }
         }
-        result = notebook.notes
+        
+        DDLogDebug("\(fetchedNotes.count) notes was fetched")
+        /// Array of parsed Notes from NSManagedObject
+        let notes = fetchedNotes.map { $0.noteFromEntity }
+        /// Add Notes to FileNotebook
+        notes.forEach { notebook.add($0) }
+        
+        result = notes
+        
         finish()
     }
 }

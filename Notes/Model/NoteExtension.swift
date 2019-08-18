@@ -60,14 +60,7 @@ extension Note {
         
         /// If color not white push into dictionary
         if self.color.rgba != UIColor.white.rgba {
-            
-            var colorArray = [CGFloat]()
-            colorArray.append(self.color.rgba.red)
-            colorArray.append(self.color.rgba.green)
-            colorArray.append(self.color.rgba.blue)
-            colorArray.append(self.color.rgba.alpha)
-            
-            dictionary["color"] = colorArray
+            dictionary["color"] = createColorArray()
         }
         
         /// If importance not normal push into dictionary
@@ -81,17 +74,13 @@ extension Note {
         
         return dictionary
     }
-}
-
-// MARK: - Decompose the color value into RGBA
-extension UIColor {
-    var rgba: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
-        var red: CGFloat = 0
-        var green: CGFloat = 0
-        var blue: CGFloat = 0
-        var alpha: CGFloat = 0
-        getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-        
-        return (red, green, blue, alpha)
+    
+    func createColorArray() -> [CGFloat] {
+        var colorArray = [CGFloat]()
+        colorArray.append(self.color.rgba.red)
+        colorArray.append(self.color.rgba.green)
+        colorArray.append(self.color.rgba.blue)
+        colorArray.append(self.color.rgba.alpha)
+        return colorArray
     }
 }

@@ -19,7 +19,8 @@ extension EditNoteViewController {
             else { return }
         
         let selfDestructionDate: Date?
-        selfDestructionDate = selfDestructionDatePickerContainer.isHidden ? nil : selfDestructionDatePicker.date
+        selfDestructionDate = selfDestructionDatePickerContainer.isHidden ?
+            nil : selfDestructionDatePicker.date
         
         let newNote = Note(title: title,
                            content: content,
@@ -33,7 +34,8 @@ extension EditNoteViewController {
             let saveNoteOperation = SaveNoteOperation(note: newNote,
                                                       notebook: FileNotebook.notebook,
                                                       backendQueue: OperationQueue(),
-                                                      dbQueue: OperationQueue())
+                                                      dbQueue: OperationQueue(),
+                                                      backgroundContext: backgroundContext)
             
             saveNoteOperation.completionBlock = {
                 OperationQueue.main.addOperation {

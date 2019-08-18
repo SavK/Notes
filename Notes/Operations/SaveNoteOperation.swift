@@ -6,11 +6,11 @@
 //  Copyright © 2019 Savonevich Konstantin. All rights reserved.
 //
 
-import Foundation
+import CoreData
 
 class SaveNoteOperation: AsyncOperation {
     
-    // MARK: Private Properties
+    // MARK: - Private Properties
     private let note: Note
     private let notebook: FileNotebook
     private let saveToDb: SaveNoteDBOperation
@@ -21,12 +21,17 @@ class SaveNoteOperation: AsyncOperation {
     init(note: Note,
          notebook: FileNotebook,
          backendQueue: OperationQueue,
-         dbQueue: OperationQueue) {
+         dbQueue: OperationQueue,
+         backgroundContext: NSManagedObjectContext) {
+        
         self.note = note
         self.notebook = notebook
         
-        saveToDb = SaveNoteDBOperation(note: note, notebook: notebook)
         saveToBackend = SaveNotesBackendOperation(notes: notebook.notes)
+        saveToDb = SaveNoteDBOperation(note: note,
+                                       notebook: notebook,
+                                       context: backgroundContext)
+        
         
         super.init()
         

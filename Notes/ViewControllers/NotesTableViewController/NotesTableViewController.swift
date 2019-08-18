@@ -7,16 +7,24 @@
 //
 
 import UIKit
+import CoreData
+import Network
 
 class NotesTableViewController: UITableViewController {
     
     // MARK: - Properties
     let noteBook = FileNotebook.notebook
-    var activityIndicator = UIActivityIndicatorView(style: .gray)
     let dbOperationQueue = OperationQueue()
     let backendOperationQueue = OperationQueue()
+    var activityIndicator = UIActivityIndicatorView(style: .gray)
     var selectedIndex: Int?
     var notes: [Note] = []
+    /// Internet connection monitor
+    let monitor = NWPathMonitor()
+    let monitorNWConnectionQueue = DispatchQueue(label: "InternetConnectionMonitor")
+    /// CoreData context
+    var backgroundContext: NSManagedObjectContext!
+    
     
     // MARK: - IB Actions
     @IBAction func editButtonTapped(_ sender: UIBarButtonItem) {
@@ -36,7 +44,9 @@ class NotesTableViewController: UITableViewController {
     // MARK: - UIViewController Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
+        loadNetworkConnectionMonitor()
+        
         dbOperationQueue.maxConcurrentOperationCount = 1
         backendOperationQueue.maxConcurrentOperationCount = 1
         
@@ -47,7 +57,8 @@ class NotesTableViewController: UITableViewController {
                                                selector: #selector(saveNotes),
                                                name: UIApplication.willResignActiveNotification,
                                                object: nil)
-        
+        /// Customizing
+        activityIndicator.color = .black
         activityIndicator.hidesWhenStopped = true
         view.addSubview(activityIndicator)
     }
@@ -56,7 +67,5 @@ class NotesTableViewController: UITableViewController {
         super.viewWillAppear(true)
         
         loadNotesData()
-        activityIndicator.center = self.tableView.center
     }
 }
-

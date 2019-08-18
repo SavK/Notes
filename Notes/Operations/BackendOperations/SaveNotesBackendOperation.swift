@@ -19,6 +19,7 @@ class SaveNotesBackendOperation: BaseBackendOperation {
     // MARK: - Properties
     private(set) var result: SaveNotesBackendResult?
     private let semaphore = DispatchSemaphore(value: 0)
+    let gistDescription = "Save Notes"
     var notes: [Note]
     
     init(notes: [Note]) {
@@ -42,14 +43,13 @@ class SaveNotesBackendOperation: BaseBackendOperation {
 extension SaveNotesBackendOperation {
     
     private func postGist(data: Data) {
-        let description = "Save Notes"
         let isPublic = false
         let gistFileWithNotes = FileContent(content: String(data: data,
                                                             encoding: .utf8)!)
         
         let gistFiles = [UserSettings.shared.gitHubGistFileName: gistFileWithNotes]
         
-        let gist = SendGistProperties(gistsDescription: description,
+        let gist = SendGistProperties(gistsDescription: gistDescription,
                                       gistsPublic: isPublic,
                                       files: gistFiles)
         
@@ -71,6 +71,16 @@ extension SaveNotesBackendOperation {
         }
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let response = response as? HTTPURLResponse {
+                if case 200...300 = response.statusCode {
+                    DDLogDebug("Gist with ID:\(UserSettings.shared.gitHubGistID) POSTED")
+                } else {
+                    DDLogError("POST Error. Status code: \(response.statusCode)")
+                    UserSettings.shared.gitHubGistID = ""
+                    self.result = .failure(.unreachable)
+                }
+            }
+            
             if let error = error {
                  DDLogError("ERROR POST request: \(error.localizedDescription)")
                 self.result = .failure(.unreachable)
@@ -79,18 +89,17 @@ extension SaveNotesBackendOperation {
             }
             self.semaphore.signal()
         }
+        
         task.resume()
     }
     
-    private func patchGist(data:Data) {
-        let description = "Save Notes"
+    private func patchGist(data: Data) {
         let isPublic = false
         let gistFileWithNotes = FileContent(content: String(data: data,
                                                             encoding: .utf8)!)
         
         let gistFiles = [UserSettings.shared.gitHubGistFileName: gistFileWithNotes]
-        
-        let gist = SendGistProperties(gistsDescription: description,
+        let gist = SendGistProperties(gistsDescription: gistDescription,
                                       gistsPublic: isPublic,
                                       files: gistFiles)
         
@@ -112,6 +121,16 @@ extension SaveNotesBackendOperation {
         }
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let response = response as? HTTPURLResponse {
+                if case 200...300 = response.statusCode {
+                    DDLogDebug("Gist with ID:\(UserSettings.shared.gitHubGistID) PATCHED")
+                } else {
+                    DDLogError("PATCH Error. Status code: \(response.statusCode)")
+                    UserSettings.shared.gitHubGistID = ""
+                    self.result = .failure(.unreachable)
+                }
+            }
+            
             if let error = error {
                 DDLogError("ERROR PATCH request: \(error.localizedDescription)")
                 self.result = .failure(.unreachable)
@@ -120,6 +139,7 @@ extension SaveNotesBackendOperation {
             }
             self.semaphore.signal()
         }
+        
         task.resume()
     }
 }

@@ -6,12 +6,14 @@
 //  Copyright © 2019 Savonevich Konstantin. All rights reserved.
 //
 
-import Foundation
+import CoreData
 
 class BaseDBOperation: AsyncOperation {
     let notebook: FileNotebook
+    let backgroundContext: NSManagedObjectContext
     
-    init(notebook: FileNotebook) {
+    init(notebook: FileNotebook, backgroundContext: NSManagedObjectContext) {
+        self.backgroundContext = backgroundContext
         self.notebook = notebook
         super.init()
     }

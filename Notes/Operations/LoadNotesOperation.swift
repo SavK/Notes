@@ -7,26 +7,33 @@
 //
 
 import Foundation
+import CoreData
 import CocoaLumberjack
 
 class LoadNotesOperation: AsyncOperation {
     
-    // MARK: Private Properties
+    // MARK: - Private Properties
     private var loadFromBackend: LoadNotesBackendOperation
     private var loadFromDb: LoadNotesDBOperation
+    private var notebook: FileNotebook
     
     private(set) var result: [Note]? = []
     
     init(notebook: FileNotebook,
          backendQueue: OperationQueue,
-         dbQueue: OperationQueue) {
+         dbQueue: OperationQueue,
+         backgroundContext: NSManagedObjectContext) {
         
         loadFromBackend = LoadNotesBackendOperation()
-        loadFromDb = LoadNotesDBOperation(notebook: notebook)
+        loadFromDb = LoadNotesDBOperation(notebook: notebook,
+                                          backgroundContext: backgroundContext)
         
+        self.notebook = notebook
         super.init()
         
-        addDependency(loadFromBackend)
+        loadFromDb.completionBlock = {
+            self.addDependency(self.loadFromBackend)
+        }
         addDependency(loadFromDb)
         
         dbQueue.addOperation(loadFromBackend)
@@ -40,10 +47,11 @@ class LoadNotesOperation: AsyncOperation {
         
         switch loadFromBackend.result {
         case .some(.success(let notes)):
-            DDLogDebug("loading backend SUCCESS")
             result = notes
+            DDLogDebug("loading backend SUCCESS")
         default:
             result = loadFromDb.result
+            DDLogDebug("loading DB SUCCESS")
         }
     }
 }

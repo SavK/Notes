@@ -29,9 +29,8 @@ class LoadNotesBackendOperation: BaseBackendOperation {
     }
     
     override func main() {
-        defer { finish() }
         
-        if isCancelled { return }
+        if isCancelled {  return }
         
         guard let url = URL(string: apiGitHubURL) else { return }
         var request = URLRequest(url: url)
@@ -56,6 +55,7 @@ class LoadNotesBackendOperation: BaseBackendOperation {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
                 decoder.dateDecodingStrategy = .iso8601
+                
                 let gitData = try decoder.decode([GitHubGist].self, from: data)
                 self.findGistWithNotes(gists: gitData)
             } catch let decodeError {
@@ -72,12 +72,13 @@ extension LoadNotesBackendOperation {
     
     private func fail() {
         result = .failure(.unreachable)
+        DDLogError("loading notes from backend FAILED")
         finish()
     }
     
     private func success() {
-        DDLogDebug("loading notes from backend SUCCESS")
         result = .success(notes)
+        DDLogDebug("loading notes from backend SUCCESS")
         finish()
     }
 }
@@ -105,6 +106,12 @@ extension LoadNotesBackendOperation {
             return
         }
         
+        /// Stop download if internet connection is lost
+        guard UserSettings.shared.isInternetConnectionOn else {
+            fail()
+            return
+        }
+        
         var request = URLRequest(url: gistWithNotesURL)
         request.setValue("token \(UserSettings.shared.gitHubToken)",
             forHTTPHeaderField: "Authorization")
@@ -112,6 +119,7 @@ extension LoadNotesBackendOperation {
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
                 DDLogError("ERROR download notes from gist: \(error.localizedDescription)")
+                self.fail()
                 return
             }
             

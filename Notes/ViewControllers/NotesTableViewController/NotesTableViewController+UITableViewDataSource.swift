@@ -28,6 +28,7 @@ extension NotesTableViewController {
         cell.noteColorView?.backgroundColor = note.color
         cell.noteTitleLabel?.text = note.title
         cell.noteContentLabel?.text = note.content
+        activityIndicator.center = cell.center
         
         return cell
     }

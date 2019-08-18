@@ -11,6 +11,14 @@ import UIKit
 // MARK: - Custom Methods
 extension NotesTableViewController {
     
+    func loadNetworkConnectionMonitor() {
+        monitor.pathUpdateHandler = { pathUpdateHandler in
+            UserSettings.shared.isInternetConnectionOn = pathUpdateHandler.status == .satisfied ?
+                true : false
+        }
+        monitor.start(queue: monitorNWConnectionQueue)
+    }
+    
     func toggleEditingMode(forButton button: UIBarButtonItem) {
         if !tableView.isEditing {
             tableView.setEditing(true, animated: true)
@@ -25,7 +33,6 @@ extension NotesTableViewController {
     
     func requestToken() {
         let authenticationViewController = AuthenticationViewController()
-        
         authenticationViewController.delegate = self
         present(authenticationViewController, animated: false, completion: nil)
     }

@@ -10,14 +10,16 @@ class UserSettings {
     
     // MARK: - Properties
     static let shared: UserSettings = UserSettings()
+    
     let gitHubGistFileName = "ios-course-notes-db"
     
     var gitHubToken: String = ""
     var gitHubGistID: String = ""
-    
     var isLoginedInGitHub: Bool {
-        return !self.gitHubToken.isEmpty
+        return !gitHubToken.isEmpty
     }
+    
+    var isInternetConnectionOn = false
     /// Private init
     private init() {}
 }

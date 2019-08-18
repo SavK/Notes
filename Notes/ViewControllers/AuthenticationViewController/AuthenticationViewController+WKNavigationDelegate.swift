@@ -7,12 +7,19 @@
 //
 
 import WebKit
+import CocoaLumberjack
 
 extension AuthenticationViewController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView,
                  decidePolicyFor navigationAction: WKNavigationAction,
                  decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        /// Stop auth if internet connection is lost
+        guard UserSettings.shared.isInternetConnectionOn else {
+            decisionHandler(.cancel)
+            dismiss(animated: true, completion: nil)
+            return
+        }
         
         let request = navigationAction.request
         if let url = request.url {
