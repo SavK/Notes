@@ -22,19 +22,7 @@ extension EditNoteViewController {
     
     func findSelectedColor() -> UIColor? {
         let squares = [redSquare, greenSquare, whiteSquare, customSquare]
-        for square in squares {
-            if square != nil, square!.isSelect {
-                return square?.squareColor
-            }
-        }
-        return nil
-    }
-    
-    func getHsbColor(of color: UIColor) -> [CGFloat] {
-        var h: CGFloat = 0
-        var s: CGFloat = 0
-        var b: CGFloat = 0
-        color.getHue(&h, saturation: &s, brightness: &b, alpha: nil)
-        return [h, 1 - s, b]
+        guard let square = squares.first(where: { $0 != nil && $0!.isSelect }) else { return nil }
+        return square?.squareColor
     }
 }

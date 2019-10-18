@@ -11,15 +11,14 @@ import UIKit
 class ColorSquareView : UIView {
     
     // MARK: - Properies
+    let borderWidth: CGFloat = 1.5
     var iridescentImage: UIImageView?
     @IBInspectable var squareColor: UIColor? {
         get {
             return self.backgroundColor
         }
         set {
-            for view in self.subviews {
-                view.removeFromSuperview()
-            }
+            self.subviews.forEach { $0.removeFromSuperview() }
             self.backgroundColor = newValue
             self.setNeedsDisplay()
         }
@@ -34,18 +33,21 @@ class ColorSquareView : UIView {
     
     /// Draw circle with tick
     private func createCheckmarkPath() {
+        let sideIdent: CGFloat = 20
+        let lineLength: CGFloat = 5
         let path = UIBezierPath()
-        path.lineWidth = 1.5
+        
+        path.lineWidth = borderWidth
         /// Draw circle
-        path.addArc(withCenter: CGPoint(x: self.bounds.width - 20, y: 20),
+        path.addArc(withCenter: CGPoint(x: self.bounds.width - sideIdent, y: sideIdent),
                     radius: 13,
                     startAngle: 0,
                     endAngle: CGFloat(2 * Double.pi),
                     clockwise: false)
         ///Draw tick
-        path.move(to: CGPoint(x: self.bounds.width - 25, y: 20))
-        path.addLine(to: CGPoint(x: self.bounds.width - 20, y: 25))
-        path.addLine(to: CGPoint(x: self.bounds.width - 15, y: 15))
+        path.move(to: CGPoint(x: self.bounds.width - sideIdent - lineLength, y: sideIdent))
+        path.addLine(to: CGPoint(x: self.bounds.width - sideIdent, y: sideIdent + lineLength))
+        path.addLine(to: CGPoint(x: self.bounds.width - sideIdent + lineLength, y: sideIdent - lineLength))
         
         isDarkColorSelect ? UIColor.white.setStroke() : UIColor.black.setStroke()
         path.stroke()
@@ -67,7 +69,7 @@ class ColorSquareView : UIView {
         super.draw(rect)
         
         self.layer.borderColor = UIColor.black.cgColor
-        self.layer.borderWidth = 1.5
+        self.layer.borderWidth = borderWidth
         
         if squareColor == nil {
             setIridescentBackgroundImage()

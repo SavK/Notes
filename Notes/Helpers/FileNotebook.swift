@@ -24,25 +24,23 @@ class FileNotebook {
     }
     
     /// Add new note with UID checking
-    public func add(_ note: Note) {
-        for (index, element) in notes.enumerated() {
-            if element.uid == note.uid {
-                notes.remove(at: index)
-                notes.insert(note, at: 0)
-                return
-            }
+    public func add(note: Note) {
+        guard let replaceNoteIndex = notes.firstIndex(where: { $0.uid == note.uid }) else {
+            notes.append(note)
+            return
         }
-        notes.append(note)
+        notes.remove(at: replaceNoteIndex)
+        notes.insert(note, at: 0)
     }
     
     /// Remove note with received UID
-    public func remove(with uid: String) {
-        for (index, element) in notes.enumerated() {
-            if uid == element.uid {
-                DDLogInfo("Note was removed from DB. UID=\(uid)")
-                notes.remove(at: index)
-            }
+    public func remove(noteWith uid: String) {
+        guard let removeNoteIndex = notes.firstIndex(where: { $0.uid == uid }) else {
+            DDLogInfo("Note with UID=\(uid) wasn't find in DB.")
+            return
         }
+        DDLogInfo("Note was removed from DB. UID=\(uid)")
+        notes.remove(at: removeNoteIndex)
     }
     
     func getCacheFileDirectory() -> URL {
@@ -59,7 +57,7 @@ class FileNotebook {
     }
     
     /// Save notes as JSON Data into file
-    public func saveToFile() {
+    public func saveNotesToFile() {
         let jsonArray = notes.map { $0.json }
         if let data = try? JSONSerialization.data(withJSONObject: jsonArray, options: []) {
             if FileManager.default.createFile(atPath: getCacheFileDirectory().path, contents: data,
@@ -74,16 +72,16 @@ class FileNotebook {
     }
     
     /// Load JSON Data from file and update notes
-    public func loadFromFile() throws {
+    public func loadNotesFromFile() throws {
         notes.removeAll()
         do {
             if let data = try? Data(contentsOf: getCacheFileDirectory()),
                 let jsonData = try JSONSerialization.jsonObject(with: data,
                                                                 options: []) as? [[String: Any]] {
                 
-                for noteJson in jsonData {
-                    guard let note = Note.parse(json: noteJson) else { return }
-                    self.add(note)
+                jsonData.forEach {
+                    guard let note = Note.parse(json: $0) else { return }
+                    self.add(note: note)
                 }
             } else {
                 DDLogError("Can't load notes from file.")
@@ -96,11 +94,8 @@ class FileNotebook {
     static func convertNoteFromJson(data: Data) -> [Note] {
         var arrayOfNotes: [Note] = []
         do {
-            guard let notes = try JSONSerialization.jsonObject(with: data,
-                                                               options: []) as? [[String:Any]]
-                else {
-                    return arrayOfNotes
-            }
+            guard let notes = try JSONSerialization.jsonObject(with: data, options: []) as? [[String:Any]]
+                else { return arrayOfNotes }
             
             arrayOfNotes = notes.compactMap { Note.parse(json: $0) }
         } catch {
@@ -123,10 +118,7 @@ class FileNotebook {
     /// Convert notes into JSON Object
     private func getJSONObject() -> [[String:Any]] {
         var jsonArray = [[String: Any]]()
-        
-        for note in notes {
-            jsonArray.append(note.json)
-        }
+        notes.forEach { jsonArray.append($0.json) }
         return jsonArray
     }
 }

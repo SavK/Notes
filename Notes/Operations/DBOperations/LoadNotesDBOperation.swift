@@ -30,7 +30,7 @@ class LoadNotesDBOperation: BaseDBOperation {
         /// Array of parsed Notes from NSManagedObject
         let notes = fetchedNotes.map { $0.noteFromEntity }
         /// Add Notes to FileNotebook
-        notes.forEach { notebook.add($0) }
+        notes.forEach { notebook.add(note: $0) }
         
         result = notes
         

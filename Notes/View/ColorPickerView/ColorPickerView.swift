@@ -8,42 +8,55 @@
 
 import UIKit
 
-// Вью для выбора цвета, загружает из ColorPickerView.xib
+/// View for color select, loaded from ColorPickerView.xib
 
 @IBDesignable
 class ColorPickerView : UIView {
     
     // MARK: - IB Outlets
-    @IBOutlet weak var backgroundColorPaletteView: UIView!
-    @IBOutlet weak var brightnessCorrector: UISlider!
-    @IBOutlet weak var currentColorView: UIView!
-    @IBOutlet weak var currentColorHex: UILabel!
+    @IBOutlet var backgroundColorPaletteView: UIView!
+    @IBOutlet var brightnessCorrector: UISlider!
+    @IBOutlet var currentColorView: UIView!
+    @IBOutlet var currentColorHex: UILabel!
+    /// Constraints Color View
+    @IBOutlet var colorViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet var colorViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet var colorViewTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet var colorViewTopConstraint: NSLayoutConstraint!
+    /// Constraints Current Color View
+    @IBOutlet var currentColorViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet var currentColorViewHeightConstraint: NSLayoutConstraint!
     
     // MARK: - Properties
     let paletteView = ColorPaletteView()
     let cursorView = UIView()
-    let cursorDiametr: CGFloat = 24
     
-    var delegate: ColorDelegate!
+    let cursorDiametr: CGFloat = 24
+    let averageBrightness: CGFloat = 0.5
+    let borderWidth: CGFloat = 1.5
+    
+    weak var delegate: ColorDelegate!
     
     var colorPaletteViewHeight: CGFloat = 0
     var colorPaletteViewWidth: CGFloat = 0
     var currentColor: UIColor {
-        return UIColor(hue: delegate.color[0],
-                       saturation: 1 - delegate.color[1],
-                       brightness: delegate.color[2],
+        return UIColor(hue: delegate.color[HSB.hue.index],
+                       saturation: 1 - delegate.color[HSB.saturation.index],
+                       brightness: delegate.color[HSB.brightness.index],
                        alpha: 1)
     }
     
     var currentColorHexString: String {
+        let uInt8Max: CGFloat = 255
         var r: CGFloat = 0
         var g: CGFloat = 0
         var b: CGFloat = 0
         var a: CGFloat = 0
         currentColor.getRed(&r, green: &g, blue: &b, alpha: &a)
         
-        return "#" + String(format: "%.2X", Int(round(r*255))) + String(format: "%.2X", Int(round(g*255)))
-            + String(format: "%.2X", Int(round(b*255)))
+        return "#" + String(format: "%.2X", Int(round(r * uInt8Max)))
+            + String(format: "%.2X", Int(round(g * uInt8Max)))
+            + String(format: "%.2X", Int(round(b * uInt8Max)))
     }
     
     // MARK: - Initializators
@@ -59,7 +72,7 @@ class ColorPickerView : UIView {
     
     // MARK: - IB Actions
     @IBAction func correctBrightness(_ sender: UISlider) {
-        delegate.color[2] = CGFloat(sender.value)
+        delegate.color[HSB.brightness.index] = CGFloat(sender.value)
         updateUI()
     }
     
@@ -84,26 +97,31 @@ class ColorPickerView : UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        colorPaletteViewWidth = self.bounds.width - 16 * 2
-        colorPaletteViewHeight = self.bounds.height - 8 - 16 * 2 - currentColorView.frame.height
+        colorPaletteViewWidth = self.bounds.width
+            - colorViewLeadingConstraint.constant - colorViewTrailingConstraint.constant
+        
+        colorPaletteViewHeight = self.bounds.height - currentColorViewHeightConstraint.constant
+            - currentColorViewTopConstraint.constant - colorViewTopConstraint.constant
+            - colorViewBottomConstraint.constant
+        
         updateUI()
     }
     
     private func paletteWasTouched(_ sender: UIGestureRecognizer) {
+        guard colorPaletteViewWidth.isMoreThenZero(), colorPaletteViewHeight.isMoreThenZero()
+            else { return }
+        
         let touchPoint = sender.location(in: backgroundColorPaletteView)
-        delegate.color[0] = checkCursorInBounds(touchPoint.x / colorPaletteViewWidth)
-        delegate.color[1] = checkCursorInBounds(touchPoint.y / colorPaletteViewHeight)
+        delegate.color[HSB.hue.index] = checkCursorInBounds(touchPoint.x / colorPaletteViewWidth)
+        delegate.color[HSB.saturation.index] = checkCursorInBounds(touchPoint.y / colorPaletteViewHeight)
         updateUI()
     }
     
     /// Check that cursor into bounds [0; 1]
     private func checkCursorInBounds(_ cursor: CGFloat) -> CGFloat {
-        if cursor < 0 {
-            return 0
-        }
-        if cursor > 1 {
-            return 1
-        }
+        if cursor.isLess(than: 0) { return 0 }
+        if CGFloat(1).isLess(than: cursor) { return 1 }
+
         return cursor
     }
 }

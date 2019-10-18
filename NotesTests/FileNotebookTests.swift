@@ -34,7 +34,7 @@ class FileNotebookTests: XCTestCase {
                         content: "Text",
                         importance: .normal)
         
-        fileNotebook.add(note)
+        fileNotebook.add(note: note)
 
         let notes = fileNotebook.notes
 
@@ -47,7 +47,7 @@ class FileNotebookTests: XCTestCase {
 
     func testFileNotebook_whenAddNote_noteSavedInNotesWithAllInfo() {
         let note = Note(title: "Title", content: "Text", importance: .normal)
-        fileNotebook.add(note)
+        fileNotebook.add(note: note)
 
         guard let checkedNote = getNote(by: note.uid, from: fileNotebook.notes) else {
             XCTFail()
@@ -69,8 +69,8 @@ class FileNotebookTests: XCTestCase {
                         content: "Text",
                         importance: .normal)
         
-        fileNotebook.add(note)
-        fileNotebook.remove(with: note.uid)
+        fileNotebook.add(note: note)
+        fileNotebook.remove(noteWith: note.uid)
 
         let notes = fileNotebook.notes
 
@@ -81,19 +81,19 @@ class FileNotebookTests: XCTestCase {
         let note = Note(title: "Title",
                         content: "Text",
                         importance: .normal)
-        fileNotebook.add(note)
+        fileNotebook.add(note: note)
 
         let note2 = Note(title: "New Title",
                          content: "My new text",
                          importance: .important,
                          color: .red,
                          selfDestructionDate: Date())
-        fileNotebook.add(note2)
+        fileNotebook.add(note: note2)
 
-        fileNotebook.saveToFile()
+        fileNotebook.saveNotesToFile()
 
-        fileNotebook.remove(with: note.uid)
-        fileNotebook.remove(with: note2.uid)
+        fileNotebook.remove(noteWith: note.uid)
+        fileNotebook.remove(noteWith: note2.uid)
 
         XCTAssertTrue(fileNotebook.notes.isEmpty)
 
@@ -102,9 +102,9 @@ class FileNotebookTests: XCTestCase {
                          importance: .unimportant,
                          color: .green,
                          selfDestructionDate: Date())
-        fileNotebook.add(note3)
+        fileNotebook.add(note: note3)
 
-        fileNotebook.loadFromFile()
+        fileNotebook.loadNotesFromFile()
 
         let notes = fileNotebook.notes
         XCTAssertEqual(notes.count, 2)
@@ -116,17 +116,17 @@ class FileNotebookTests: XCTestCase {
         let note = Note(title: "Title",
                         content: "Text",
                         importance: .normal)
-        fileNotebook.add(note)
+        fileNotebook.add(note: note)
 
         let note2 = Note(title: "New Title",
                          content: "My new text",
                          importance: .important,
                          color: .red,
                          selfDestructionDate: Date())
-        fileNotebook.add(note2)
+        fileNotebook.add(note: note2)
 
-        fileNotebook.saveToFile()
-        fileNotebook.loadFromFile()
+        fileNotebook.saveNotesToFile()
+        fileNotebook.loadNotesFromFile()
 
         let notes = fileNotebook.notes
 

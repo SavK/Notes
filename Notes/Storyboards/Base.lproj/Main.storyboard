@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="IOG-f4-aeD">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="IOG-f4-aeD">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -163,10 +161,9 @@
         <scene sceneID="p1e-Zv-RcN">
             <objects>
                 <tableViewController id="Ds4-6W-ogl" customClass="NotesTableViewController" customModule="Notes" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="pJR-eM-C0E">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="pJR-eM-C0E">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <connections>
                             <outlet property="dataSource" destination="Ds4-6W-ogl" id="A5F-OR-OQt"/>
                             <outlet property="delegate" destination="Ds4-6W-ogl" id="448-7X-Cph"/>
@@ -185,6 +182,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="leftBarButton" destination="wSN-U7-S7s" id="JLT-88-iJl"/>
                         <segue destination="pdn-OJ-76e" kind="show" identifier="showEditView" id="eWk-9G-FPf"/>
                     </connections>
                 </tableViewController>
@@ -204,16 +202,15 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Itp-uH-gx4">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="392"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="396"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter title for your note" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CMY-gq-fXi">
-                                                <rect key="frame" x="16" y="16" width="382" height="30"/>
-                                                <nil key="textColor"/>
+                                                <rect key="frame" x="16" y="16" width="382" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                                             </textField>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="xJe-Rk-vfC">
-                                                <rect key="frame" x="16" y="62" width="382" height="35"/>
+                                                <rect key="frame" x="16" y="66" width="382" height="35"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="GJz-aT-f2y"/>
@@ -222,7 +219,7 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W7q-eg-6rW">
-                                                <rect key="frame" x="16" y="113" width="382" height="31"/>
+                                                <rect key="frame" x="16" y="117" width="382" height="31"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use Destroy Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S9a-nq-Yyj">
                                                         <rect key="frame" x="0.0" y="2.5" width="172.5" height="26.5"/>
@@ -247,13 +244,10 @@
                                                 </constraints>
                                             </view>
                                             <view opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="ygu-ni-Dml">
-                                                <rect key="frame" x="16" y="160" width="382" height="216"/>
+                                                <rect key="frame" x="16" y="164" width="382" height="216"/>
                                                 <subviews>
                                                     <datePicker autoresizesSubviews="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="eDL-b5-HBr">
                                                         <rect key="frame" x="31" y="0.0" width="320" height="216"/>
-                                                        <date key="date" timeIntervalSinceReferenceDate="583945062.29834604">
-                                                            <!--2019-07-04 14:57:42 +0000-->
-                                                        </date>
                                                     </datePicker>
                                                 </subviews>
                                                 <constraints>
@@ -267,7 +261,7 @@
                                         <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="XaC-UA-USr">
-                                        <rect key="frame" x="55" y="392" width="304" height="70"/>
+                                        <rect key="frame" x="55" y="396" width="304" height="70"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Zn-W6-13j" customClass="ColorSquareView" customModule="Notes" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
@@ -371,6 +365,7 @@
                         <outlet property="scrollView" destination="xJx-n7-QCW" id="VSO-f6-aPG"/>
                         <outlet property="selfDestructionDatePicker" destination="eDL-b5-HBr" id="6eM-2B-dSp"/>
                         <outlet property="selfDestructionDatePickerContainer" destination="ygu-ni-Dml" id="0VD-E6-2Ih"/>
+                        <outlet property="selfDestructionDatePickerContainerHeightConstraint" destination="MND-Uh-3bZ" id="rc0-RH-hBB"/>
                         <outlet property="selfDestructionDatePickerSwitch" destination="uZA-20-48n" id="alt-rV-xgy"/>
                         <outlet property="stackView" destination="Itp-uH-gx4" id="EDo-22-sRg"/>
                         <outlet property="whiteSquare" destination="8Zn-W6-13j" id="WRx-bR-Rbl"/>

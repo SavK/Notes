@@ -16,7 +16,7 @@ extension ImageGalleryViewController: UIImagePickerControllerDelegate {
         
         let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         
-        imageGallery.add(image)
+        imageGallery.add(image: image)
         collectionView.insertItems(at: [IndexPath(row: imageGallery.images.count - 1, section: 0)])
         
         dismiss(animated: true)

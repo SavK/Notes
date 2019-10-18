@@ -12,6 +12,8 @@ import Network
 
 class NotesTableViewController: UITableViewController {
     
+    @IBOutlet var leftBarButton: UIBarButtonItem!
+    
     // MARK: - Properties
     let noteBook = FileNotebook.notebook
     let dbOperationQueue = OperationQueue()
@@ -28,7 +30,7 @@ class NotesTableViewController: UITableViewController {
     
     // MARK: - IB Actions
     @IBAction func editButtonTapped(_ sender: UIBarButtonItem) {
-        toggleEditingMode(forButton: sender)
+        toggleEditingBarButton(sender)
     }
     
     @IBAction func newNoteButtonTapped(_ sender: UIBarButtonItem) {
@@ -37,7 +39,7 @@ class NotesTableViewController: UITableViewController {
 
         if tableView.isEditing {
         guard let editButton = navigationItem.leftBarButtonItem else { return }
-        toggleEditingMode(forButton: editButton)
+        toggleEditingBarButton(editButton)
         }
     }
     

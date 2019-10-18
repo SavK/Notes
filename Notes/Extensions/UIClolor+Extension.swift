@@ -19,4 +19,12 @@ extension UIColor {
         
         return (red, green, blue, alpha)
     }
+    
+    func getHsbColor() -> [CGFloat] {
+        var h: CGFloat = 0
+        var s: CGFloat = 0
+        var b: CGFloat = 0
+        self.getHue(&h, saturation: &s, brightness: &b, alpha: nil)
+        return [h, 1 - s, b]
+    }
 }

@@ -24,6 +24,8 @@ class ColorPaletteView : UIView {
         let height: CGFloat = 2
 
         for x in stride(from: 0, to: paletteWidth, by: width) {
+            guard paletteWidth.isMoreThenZero(), paletteHeight.isMoreThenZero() else { return }
+            
             let hue = x / paletteWidth
             
             for y in stride(from: 0, to: paletteHeight, by: height) {

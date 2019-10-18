@@ -19,21 +19,28 @@ extension NotesTableViewController {
         monitor.start(queue: monitorNWConnectionQueue)
     }
     
-    func toggleEditingMode(forButton button: UIBarButtonItem) {
+    func isNeedEditNotes() {
+        let status = notes.count > 0
+        navigationItem.leftBarButtonItem = status ? leftBarButton : nil
+        if status, tableView.isEditing { toggleEditingBarButton(navigationItem.leftBarButtonItem!) }
+    }
+    
+    func toggleEditingBarButton(_ button: UIBarButtonItem) {
         if !tableView.isEditing {
             tableView.setEditing(true, animated: true)
-            button.title = "Cancel"
-            button.tintColor = UIColor.red
+            button.title = "Done"
+            button.style = .done
         } else {
             tableView.setEditing(false, animated: true)
             button.title = "Edit"
-            button.tintColor = view.tintColor
+            button.style = .plain
         }
     }
     
     func requestToken() {
         let authenticationViewController = AuthenticationViewController()
         authenticationViewController.delegate = self
+        authenticationViewController.modalPresentationStyle = .fullScreen
         present(authenticationViewController, animated: false, completion: nil)
     }
     

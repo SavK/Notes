@@ -21,8 +21,10 @@ extension ColorPickerView {
         
         shapeLayer.path = path.cgPath
         shapeLayer.strokeColor = UIColor.black.cgColor
-        shapeLayer.lineWidth = 1.5
-        shapeLayer.position = CGPoint(x: currentColorHex.frame.minX, y: currentColorHex.frame.minY)
+        shapeLayer.lineWidth = borderWidth
+        shapeLayer.position = CGPoint(x: currentColorHex.frame.minX,
+                                      y: currentColorHex.frame.minY)
+        
         currentColorView.layer.addSublayer(shapeLayer)
     }
     
@@ -30,24 +32,27 @@ extension ColorPickerView {
         let shapeLayer = CAShapeLayer()
         let path = UIBezierPath()
         
-        path.addArc(withCenter: CGPoint(x: 12, y: 12),
-                    radius: 7,
+        let arcSide: CGFloat = 12
+        let radius: CGFloat = 7
+        
+        path.addArc(withCenter: CGPoint(x: arcSide, y: arcSide),
+                    radius: radius,
                     startAngle: 0,
-                    endAngle: CGFloat(2*Double.pi),
+                    endAngle: CGFloat(2 * Double.pi),
                     clockwise: true)
         
-        path.move(to: CGPoint(x: 12, y: 5))
-        path.addLine(to: CGPoint(x: 12, y: 0))
-        path.move(to: CGPoint(x: 12, y: 19))
-        path.addLine(to: CGPoint(x: 12, y: 24))
-        path.move(to: CGPoint(x: 5, y: 12))
-        path.addLine(to: CGPoint(x: 0, y: 12))
-        path.move(to: CGPoint(x: 19, y: 12))
-        path.addLine(to: CGPoint(x: 24, y: 12))
+        path.move(to: CGPoint(x: arcSide, y: arcSide - radius))
+        path.addLine(to: CGPoint(x: arcSide, y: 0))
+        path.move(to: CGPoint(x: arcSide, y: arcSide + radius))
+        path.addLine(to: CGPoint(x: arcSide, y: 2 * arcSide))
+        path.move(to: CGPoint(x: arcSide - radius, y: arcSide))
+        path.addLine(to: CGPoint(x: 0, y: arcSide))
+        path.move(to: CGPoint(x: arcSide + radius, y: arcSide))
+        path.addLine(to: CGPoint(x: arcSide * 2, y: arcSide))
         
         shapeLayer.path = path.cgPath
         shapeLayer.strokeColor = UIColor.black.cgColor
-        shapeLayer.lineWidth = 2
+        shapeLayer.lineWidth = borderWidth + 0.5
         shapeLayer.fillColor = UIColor(white: 1, alpha: 0).cgColor
         shapeLayer.position = CGPoint(x: cursorView.bounds.minX, y: cursorView.bounds.minY)
         

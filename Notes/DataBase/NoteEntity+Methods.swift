@@ -19,7 +19,7 @@ extension NoteEntity {
         return Note(title: self.title ?? "",
                     content: self.content ?? "",
                     importance: getImportance(self.importance) ?? .normal,
-                    color: resultColor ?? .white,
+                    color: NoteColor(currentColor: resultColor ?? .white),
                     selfDestructionDate: self.selfDestructionDate,
                     uid: self.uid)
     }
@@ -34,10 +34,10 @@ extension NoteEntity {
         guard let colorArray = try? JSONDecoder().decode([CGFloat].self, from: data)
             else { return UIColor.white }
         
-        let color = UIColor.init(red: colorArray[0],
-                                 green: colorArray[1],
-                                 blue: colorArray[2],
-                                 alpha: colorArray[3])
+        let color = UIColor.init(red: colorArray[RGBA.red.index],
+                                 green: colorArray[RGBA.green.index],
+                                 blue: colorArray[RGBA.blue.index],
+                                 alpha: colorArray[RGBA.alpha.index])
         
         return color
     }

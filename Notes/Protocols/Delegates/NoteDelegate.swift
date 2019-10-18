@@ -6,6 +6,6 @@
 //  Copyright © 2019 Savonevich Konstantin. All rights reserved.
 //
 
-protocol NoteDelegate {
+protocol NoteDelegate: class {
     func addNote(_ note: Note)
 }

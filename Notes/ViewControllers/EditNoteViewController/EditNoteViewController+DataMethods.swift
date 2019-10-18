@@ -25,7 +25,7 @@ extension EditNoteViewController {
         let newNote = Note(title: title,
                            content: content,
                            importance: .normal,
-                           color: color,
+                           color: NoteColor(currentColor: color),
                            selfDestructionDate: selfDestructionDate,
                            uid: note.uid)
         
@@ -60,7 +60,7 @@ extension EditNoteViewController {
             selfDestructionDatePickerContainer.isHidden = true
         }
         
-        switch note.color {
+        switch note.color.currentColor {
         case .white:
             whiteSquare.isSelect = true
         case .red:
@@ -68,7 +68,7 @@ extension EditNoteViewController {
         case .green:
             greenSquare.isSelect = true
         default:
-            color = getHsbColor(of: note.color)
+            color = note.color.currentColor.getHsbColor()
         }
     }
 }

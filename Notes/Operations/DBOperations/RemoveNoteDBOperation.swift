@@ -23,7 +23,7 @@ class RemoveNoteDBOperation: BaseDBOperation {
     }
     
     override func main() {
-        notebook.remove(with: note.uid)
+        notebook.remove(noteWith: note.uid)
         /// Find Note with uid, and delete if it is
         let request: NSFetchRequest<NoteEntity> = NoteEntity.fetchRequest()
         request.predicate = NSPredicate(format: "uid = %@", note.uid)

@@ -13,17 +13,22 @@ extension ColorPickerView {
     
     func updateUI() {
         guard let delegate = delegate else { return }
+        let halfCursorDiametr = cursorDiametr / 2
         
-        currentColorView.backgroundColor = currentColor
         currentColorHex.text = currentColorHexString
-        brightnessCorrector.value = Float(delegate.color[2])
-        paletteView.layer.opacity = Float(delegate.color[2])
-        cursorView.frame = CGRect(x: delegate.color[0]*colorPaletteViewWidth - cursorDiametr/2,
-                                  y: delegate.color[1]*colorPaletteViewHeight - cursorDiametr/2,
+        currentColorView.backgroundColor = currentColor
+        
+        brightnessCorrector.value = Float(delegate.color[HSB.brightness.index])
+        paletteView.layer.opacity = Float(delegate.color[HSB.brightness.index])
+        
+        cursorView.frame = CGRect(x: delegate.color[HSB.hue.index]
+                                    * colorPaletteViewWidth - halfCursorDiametr,
+                                  y: delegate.color[HSB.saturation.index]
+                                    * colorPaletteViewHeight - halfCursorDiametr,
                                   width: cursorDiametr,
                                   height: cursorDiametr)
         
-        if delegate.color[2] < 0.5 {
+        if delegate.color[HSB.brightness.index] < averageBrightness {
             (cursorView.layer.sublayers?.first as? CAShapeLayer)?.strokeColor = UIColor.white.cgColor
         } else {
             (cursorView.layer.sublayers?.first as? CAShapeLayer)?.strokeColor = UIColor.black.cgColor
@@ -40,7 +45,7 @@ extension ColorPickerView {
         paletteView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         
         currentColorView.layer.borderColor = UIColor.black.cgColor
-        currentColorView.layer.borderWidth = 1.5
+        currentColorView.layer.borderWidth = borderWidth
         currentColorView.layer.cornerRadius = 5
         
         drawCurrentColorSeparator()
@@ -50,7 +55,7 @@ extension ColorPickerView {
     func configureColorPaletteView() {
         backgroundColorPaletteView.clipsToBounds = true
         backgroundColorPaletteView.layer.borderColor = UIColor.black.cgColor
-        backgroundColorPaletteView.layer.borderWidth = 1.5
+        backgroundColorPaletteView.layer.borderWidth = borderWidth
         
         backgroundColorPaletteView.addSubview(paletteView)
         backgroundColorPaletteView.addSubview(cursorView)

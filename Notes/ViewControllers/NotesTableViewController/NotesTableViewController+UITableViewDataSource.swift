@@ -25,7 +25,7 @@ extension NotesTableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "noteCell",
                                                  for: indexPath) as! NoteTableViewCell
         
-        cell.noteColorView?.backgroundColor = note.color
+        cell.noteColorView?.backgroundColor = note.color.currentColor
         cell.noteTitleLabel?.text = note.title
         cell.noteContentLabel?.text = note.content
         activityIndicator.center = cell.center

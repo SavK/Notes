@@ -11,11 +11,12 @@ import UIKit
 class ColorPickerViewController: UIViewController {
     
     // MARK: - IB Outlets
-    @IBOutlet weak var colorPickerView: ColorPickerView!
+    @IBOutlet private var colorPickerView: ColorPickerView!
     
     // MARK: - Properties
+    /// default black color
     var color: [CGFloat] = [0, 0, 1]
-    var delegate: ColorDelegate!
+    weak var delegate: ColorDelegate!
     
     // MARK: - UIViewController Methods
     override func viewDidLoad() {

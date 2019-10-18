@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,8 +12,14 @@
             <connections>
                 <outlet property="backgroundColorPaletteView" destination="twk-7h-CXW" id="bct-I7-fy2"/>
                 <outlet property="brightnessCorrector" destination="ADP-6u-lcs" id="gZQ-E1-lRk"/>
+                <outlet property="colorViewBottomConstraint" destination="qS6-ld-u4X" id="Tbu-xv-DbM"/>
+                <outlet property="colorViewLeadingConstraint" destination="Ilb-Cp-3Ko" id="HUt-hZ-qk9"/>
+                <outlet property="colorViewTopConstraint" destination="L3s-w4-9bA" id="DIO-yP-245"/>
+                <outlet property="colorViewTrailingConstraint" destination="BHi-ei-Jzd" id="Rcp-PB-1Id"/>
                 <outlet property="currentColorHex" destination="XVM-dX-mpW" id="gya-Av-a1X"/>
                 <outlet property="currentColorView" destination="zSW-UK-lBd" id="bfJ-9S-VDe"/>
+                <outlet property="currentColorViewHeightConstraint" destination="6tm-7e-L6i" id="HMV-lZ-aJb"/>
+                <outlet property="currentColorViewTopConstraint" destination="XQA-wx-hEo" id="IMT-O5-jSz"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -81,6 +85,7 @@
                 <constraint firstItem="ADP-6u-lcs" firstAttribute="leading" secondItem="zSW-UK-lBd" secondAttribute="trailing" constant="16" id="yoJ-Eq-fvv"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="aDa-tI-wHm"/>
+            <point key="canvasLocation" x="139" y="142"/>
         </view>
         <panGestureRecognizer minimumNumberOfTouches="1" id="EHO-I0-0Mh">
             <connections>

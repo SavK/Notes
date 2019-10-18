@@ -13,34 +13,36 @@ class EditNoteViewController: UIViewController {
     
     // MARK: - IB Outlets
     /// View
-    @IBOutlet weak var stackView: UIStackView!
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet var stackView: UIStackView!
+    @IBOutlet var scrollView: UIScrollView!
     /// Text
-    @IBOutlet weak var noteTitleTextField: UITextField!
-    @IBOutlet weak var noteContentTextView: UITextView!
+    @IBOutlet var noteTitleTextField: UITextField!
+    @IBOutlet var noteContentTextView: UITextView!
     /// Self-destruction date picker
-    @IBOutlet weak var selfDestructionDatePickerSwitch: UISwitch!
-    @IBOutlet weak var selfDestructionDatePickerContainer: UIView!
-    @IBOutlet weak var selfDestructionDatePicker: UIDatePicker!
+    @IBOutlet var selfDestructionDatePicker: UIDatePicker!
+    @IBOutlet var selfDestructionDatePickerSwitch: UISwitch!
+    @IBOutlet var selfDestructionDatePickerContainer: UIView!
+    @IBOutlet var selfDestructionDatePickerContainerHeightConstraint: NSLayoutConstraint!
     ///Squares for select color
-    @IBOutlet weak var whiteSquare: ColorSquareView!
-    @IBOutlet weak var redSquare: ColorSquareView!
-    @IBOutlet weak var greenSquare: ColorSquareView!
-    @IBOutlet weak var customSquare: ColorSquareView!
+    @IBOutlet var whiteSquare: ColorSquareView!
+    @IBOutlet var redSquare: ColorSquareView!
+    @IBOutlet var greenSquare: ColorSquareView!
+    @IBOutlet var customSquare: ColorSquareView!
     /// CoreData context
     var backgroundContext: NSManagedObjectContext!
     
     // MARK: - Properties
+    let averageBrightness: CGFloat = 0.5
     var note = Note(title: "", content: "", importance: .normal, selfDestructionDate: nil)
-    var delegate: NoteDelegate!
-    /// Last selected color (or iridescent image)
+    weak var delegate: NoteDelegate!
+    /// Default palette color. Did set last selected color (or iridescent image)
     var color: [CGFloat] = [0.5, 0.5, 1] {
         didSet {
             pickSquare(square: customSquare)
-            customSquare.isDarkColorSelect = color[2] < 0.5
-            customSquare.squareColor = UIColor(hue: color[0],
-                                               saturation: 1 - color[1],
-                                               brightness: color[2],
+            customSquare.isDarkColorSelect = color[HSB.brightness.index] < averageBrightness
+            customSquare.squareColor = UIColor(hue: color[HSB.hue.index],
+                                               saturation: 1 - color[HSB.saturation.index],
+                                               brightness: color[HSB.brightness.index],
                                                alpha: 1)
         }
     }
@@ -76,12 +78,12 @@ class EditNoteViewController: UIViewController {
     @IBAction func onSwitchChangedState(_ sender: UISwitch) {
         
         UIView.animate(withDuration: 1) {
-            let oldContainerHeight = self.selfDestructionDatePickerContainer.frame.height
+            let oldContainerHeight = self.selfDestructionDatePickerContainerHeightConstraint.constant
             self.selfDestructionDatePickerContainer.isHidden = !sender.isOn
             self.stackView.layoutIfNeeded()
             
             var updatedOffset = self.scrollView.contentOffset
-            updatedOffset.y += self.selfDestructionDatePickerContainer.frame.height - oldContainerHeight
+            updatedOffset.y += self.selfDestructionDatePickerContainerHeightConstraint.constant - oldContainerHeight
             self.scrollView.setContentOffset(updatedOffset, animated: false)
         }
     }

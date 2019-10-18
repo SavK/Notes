@@ -11,8 +11,8 @@ import UIKit
 class ImageGalleryScrollViewController: UIViewController {
     
     // MARK: - IB Outlets
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var pageControl: UIPageControl!
+    @IBOutlet private var scrollView: UIScrollView!
+    @IBOutlet var pageControl: UIPageControl!
     
     // MARK: - Private Properties
     private var imageViews: [UIImageView] = []
@@ -34,14 +34,14 @@ class ImageGalleryScrollViewController: UIViewController {
         pageControl.numberOfPages = images.count
         scrollView.setContentOffset(CGPoint(x: offset, y: 0), animated: true)
         
-        for image in images {
-            let imageView = UIImageView(image: image)
+        images.forEach {
+            let imageView = UIImageView(image: $0)
             imageView.contentMode = .scaleAspectFit
             scrollView.addSubview(imageView)
             imageViews.append(imageView)
         }
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         

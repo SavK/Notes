@@ -38,7 +38,8 @@ class LoadNotesBackendOperation: BaseBackendOperation {
         
         request.setValue("token \(token)", forHTTPHeaderField: "Authorization")
         
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: request) { [weak self] (data, response, error) in
+        guard let `self` = self else { return }
             if let error = error {
                 DDLogError("ERROR load from backend: \(error.localizedDescription)")
                 self.fail()
@@ -116,7 +117,8 @@ extension LoadNotesBackendOperation {
         request.setValue("token \(UserSettings.shared.gitHubToken)",
             forHTTPHeaderField: "Authorization")
         
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: request) { [weak self] (data, response, error) in
+        guard let `self` = self else { return }
             if let error = error {
                 DDLogError("ERROR download notes from gist: \(error.localizedDescription)")
                 self.fail()

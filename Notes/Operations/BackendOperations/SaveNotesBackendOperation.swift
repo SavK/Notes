@@ -70,7 +70,8 @@ extension SaveNotesBackendOperation {
             DDLogError("ERROR POST request: \(error.localizedDescription)")
         }
         
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: request) { [weak self] (data, response, error) in
+        guard let `self` = self else { return }
             if let response = response as? HTTPURLResponse {
                 if case 200...300 = response.statusCode {
                     DDLogDebug("Gist with ID:\(UserSettings.shared.gitHubGistID) POSTED")
@@ -120,7 +121,8 @@ extension SaveNotesBackendOperation {
             DDLogError("ERROR PATCH request: \(error.localizedDescription)")
         }
         
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: request) { [weak self] (data, response, error) in
+        guard let `self` = self else { return }
             if let response = response as? HTTPURLResponse {
                 if case 200...300 = response.statusCode {
                     DDLogDebug("Gist with ID:\(UserSettings.shared.gitHubGistID) PATCHED")

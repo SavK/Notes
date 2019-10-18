@@ -8,24 +8,24 @@
 
 import UIKit
 
-struct Note {
+struct Note: NoteProtocol {
     let title: String
     let content: String
-    let color: UIColor
-    let importance: Importance.RawValue
+    let color: NoteColorProtocol
+    let importance: Importance
     let selfDestructionDate: Date?
     let uid: String
     
     init(title: String,
          content: String,
          importance: Importance,
-         color: UIColor = UIColor.white,
+         color: NoteColorProtocol = NoteColor(currentColor: UIColor.white),
          selfDestructionDate: Date? = nil,
          uid: String = UUID().uuidString)
     {
         self.title = title
         self.content = content
-        self.importance = importance.rawValue
+        self.importance = importance
         self.color = color
         self.selfDestructionDate = selfDestructionDate
         self.uid = uid

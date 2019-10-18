@@ -12,6 +12,6 @@ import Foundation
 extension ImageGalleryViewController {
     
     @objc func saveImages() {
-        imageGallery.saveToFile()
+        imageGallery.saveImagesToFile()
     }
 }

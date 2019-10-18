@@ -6,8 +6,8 @@
 //  Copyright © 2019 Savonevich Konstantin. All rights reserved.
 //
 
-import UIKit
+import CoreGraphics
 
-protocol ColorDelegate {
+protocol ColorDelegate: class {
     var color: [CGFloat] { get set }
 }

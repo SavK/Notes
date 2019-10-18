@@ -11,9 +11,10 @@ import UIKit
 class ImageGalleryViewController: UIViewController {
     
     // MARK: - IB Outlets
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet var collectionView: UICollectionView!
     
     // MARK: - Properties
+    let sideConstraint: CGFloat = 16
     var currentIndex = 0
     var imageGallery = ImageGallery()
     
@@ -21,7 +22,7 @@ class ImageGalleryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        imageGallery.loadFromFile()
+        imageGallery.loadImagesFromFile()
         NotificationCenter.default.addObserver(self, selector: #selector(saveImages),
                                                name: UIApplication.willResignActiveNotification,
                                                object: nil)

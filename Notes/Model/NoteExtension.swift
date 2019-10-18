@@ -26,10 +26,10 @@ extension Note {
         /// Change color if it present at dictionary
         if let colorArray = json["color"] as? [CGFloat] {
             
-            color = UIColor.init(red: colorArray[0],
-                                 green: colorArray[1],
-                                 blue: colorArray[2],
-                                 alpha: colorArray[3])
+            color = UIColor.init(red: colorArray[RGBA.red.index],
+                                 green: colorArray[RGBA.green.index],
+                                 blue: colorArray[RGBA.blue.index],
+                                 alpha: colorArray[RGBA.alpha.index])
         }
         
         /// Change selfDestructionDate vlaue if it present at dictionary
@@ -44,7 +44,7 @@ extension Note {
         return Note(title: title,
                     content: content,
                     importance: importance,
-                    color: color,
+                    color: NoteColor(currentColor: color),
                     selfDestructionDate: selfDestructionDate,
                     uid: uid)
         
@@ -59,28 +59,27 @@ extension Note {
         dictionary["uid"] = self.uid
         
         /// If color not white push into dictionary
-        if self.color.rgba != UIColor.white.rgba {
+        if self.color.currentColor != UIColor.white {
             dictionary["color"] = createColorArray()
         }
         
         /// If importance not normal push into dictionary
-        if self.importance != Importance.normal.rawValue {
+        if self.importance.rawValue != Importance.normal.rawValue {
             dictionary["importance"] = self.importance
         }
         /// If selfDestructionDate != nil push into dictionary
         if let selfDestructionDate = self.selfDestructionDate {
             dictionary["selfDestructionDate"] = Double(selfDestructionDate.timeIntervalSince1970)
         }
-        
         return dictionary
     }
-    
+        
     func createColorArray() -> [CGFloat] {
         var colorArray = [CGFloat]()
-        colorArray.append(self.color.rgba.red)
-        colorArray.append(self.color.rgba.green)
-        colorArray.append(self.color.rgba.blue)
-        colorArray.append(self.color.rgba.alpha)
+        colorArray.append(self.color.red)
+        colorArray.append(self.color.green)
+        colorArray.append(self.color.blue)
+        colorArray.append(self.color.alpha)
         return colorArray
     }
 }

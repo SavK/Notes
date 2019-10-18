@@ -31,7 +31,8 @@ class LoadNotesOperation: AsyncOperation {
         self.notebook = notebook
         super.init()
         
-        loadFromDb.completionBlock = {
+        loadFromDb.completionBlock = { [weak self] in
+            guard let `self` = self else { return }
             self.addDependency(self.loadFromBackend)
         }
         addDependency(loadFromDb)

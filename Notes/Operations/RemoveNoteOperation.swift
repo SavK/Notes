@@ -32,7 +32,8 @@ class RemoveNoteOperation: AsyncOperation {
         
         super.init()
         /// Save to backend after note was removed
-        removeFromDb.completionBlock = {
+        removeFromDb.completionBlock = { [weak self] in
+            guard let `self` = self else { return }
             self.saveToBackend.notes = notebook.notes
             backendQueue.addOperation(self.saveToBackend)
         }

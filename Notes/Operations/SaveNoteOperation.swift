@@ -35,7 +35,8 @@ class SaveNoteOperation: AsyncOperation {
         
         super.init()
         
-        saveToDb.completionBlock = {
+        saveToDb.completionBlock = { [weak self] in
+            guard let `self` = self else { return }
             self.saveToBackend.notes = notebook.notes
             backendQueue.addOperation(self.saveToBackend)
         }

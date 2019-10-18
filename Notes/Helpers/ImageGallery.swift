@@ -18,11 +18,13 @@ class ImageGallery {
                        UIImage(named: "IMG4"),
                        UIImage(named: "IMG5")].compactMap { $0 }
     }
-    
+    // MARK: - Properties
     public private(set) var images: [UIImage]
     let documentDirectory = FileManager.default.urls(for: .cachesDirectory,
                                                      in: .userDomainMask).first!
-    public func add(_ image: UIImage) {
+    
+    // MARK: - Functions
+    public func add(image: UIImage) {
         self.images.append(image)
     }
     
@@ -40,15 +42,16 @@ class ImageGallery {
     }
     
     /// Save images as PNG Data into files
-    public func saveToFile() {
+    public func saveImagesToFile() {
         let URLs = try? FileManager.default.contentsOfDirectory(at: getCacheFileDirectory(),
                                                                 includingPropertiesForKeys: nil,
                                                                 options: .skipsHiddenFiles)
         
         guard let imagePaths = URLs else { return }
-        for imagePath in imagePaths {
-            try? FileManager.default.removeItem(at: imagePath)
-        }
+        imagePaths.forEach { try? FileManager.default.removeItem(at: $0) }
+//        for imagePath in imagePaths {
+//            try? FileManager.default.removeItem(at: imagePath)
+//        }
         
         for (index, image) in images.enumerated() {
             let imageURL = getCacheFileDirectory().appendingPathComponent("IMG\(index).png")
@@ -57,7 +60,7 @@ class ImageGallery {
     }
     
     /// Load PNG Data from files and update images
-    public func loadFromFile() {
+    public func loadImagesFromFile() {
         var newImages: [UIImage] = []
         let URLs = try? FileManager.default.contentsOfDirectory(at: getCacheFileDirectory(),
                                                                 includingPropertiesForKeys: nil,
@@ -68,14 +71,13 @@ class ImageGallery {
             $0.absoluteString.compare($1.absoluteString, options: .numeric) == .orderedAscending
         })
         
-        for imagePath in imagePaths {
-            if let imageData: Data = try? Data(contentsOf: imagePath),
+        imagePaths.forEach {
+            if let imageData: Data = try? Data(contentsOf: $0),
                 let image: UIImage = UIImage(data: imageData) {
                 newImages.append(image)
             }
         }
-        if newImages.count != 0 {
-            images = newImages
-        }
+ 
+        if newImages.count != 0 { images = newImages }
     }
 }

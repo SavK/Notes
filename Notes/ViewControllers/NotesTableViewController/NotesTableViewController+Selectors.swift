@@ -12,6 +12,6 @@ import Foundation
 extension NotesTableViewController {
     
     @objc func saveNotes() {
-        noteBook.saveToFile()
+        noteBook.saveNotesToFile()
     }
 }

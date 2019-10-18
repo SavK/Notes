@@ -14,12 +14,14 @@ class SaveNoteDBOperation: BaseDBOperation {
     
     // MARK: - Private Properties
     private let note: Note
+    private let converter: Converter
     
     init(note: Note,
          notebook: FileNotebook,
          context: NSManagedObjectContext) {
         
         self.note = note
+        self.converter = Converter(object: note)
         super.init(notebook: notebook, backgroundContext: context)
     }
     
@@ -28,23 +30,14 @@ class SaveNoteDBOperation: BaseDBOperation {
         let request: NSFetchRequest<NoteEntity> = NoteEntity.fetchRequest()
         request.predicate = NSPredicate(format: "uid = %@", note.uid)
         
-        notebook.add(note)
+        notebook.add(note: note)
         backgroundContext.performAndWait {
             do {
                 /// Find Note with uid, and delete if it is
                 let notes = try backgroundContext.fetch(request)
                 if notes.count > 0 { backgroundContext.delete(notes.first!) }
-                /// Create new Note for DB
-                let newNote = NoteEntity(context: backgroundContext)
-                newNote.title = note.title
-                newNote.uid = note.uid
-                newNote.content = note.content
-                newNote.importance = note.importance
-                newNote.selfDestructionDate = note.selfDestructionDate
-                
-               // if note.color.rgba != UIColor.white.rgba {
-                    newNote.color = try? JSONEncoder().encode(note.createColorArray())
-                //}
+                /// Create new note for DB
+                converter.convertObjectToCoreData(forContext: backgroundContext)
                 /// Save Note
                 try backgroundContext.save()
             } catch {

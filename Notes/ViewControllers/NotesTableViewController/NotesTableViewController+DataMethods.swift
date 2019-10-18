@@ -28,13 +28,15 @@ extension NotesTableViewController {
             self.activityIndicatorStart()
         }
         
-        loadNotes.completionBlock = {
+        loadNotes.completionBlock = { [weak self] in
+            guard let `self` = self else { return }
             let loadedNotes = loadNotes.result ?? []
             DDLogDebug(" \(loadedNotes.count) notes was uploaded")
             self.notes = loadedNotes
             OperationQueue.main.addOperation {
                 self.activityIndicatorStop()
                 self.tableView.reloadData()
+                self.isNeedEditNotes()
             }
         }
         OperationQueue().addOperation(loadNotes)
@@ -59,6 +61,7 @@ extension NotesTableViewController {
                     self.activityIndicatorStop()
                     self.notes.remove(at: indexPath.row)
                     self.tableView.deleteRows(at: [indexPath], with: .left)
+                    self.isNeedEditNotes()
                 }
             }
         }
