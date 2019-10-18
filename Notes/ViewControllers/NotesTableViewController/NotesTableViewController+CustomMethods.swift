@@ -21,8 +21,8 @@ extension NotesTableViewController {
     
     func isNeedEditNotes() {
         let status = notes.count > 0
+        if !status, tableView.isEditing { toggleEditingBarButton(navigationItem.leftBarButtonItem!) }
         navigationItem.leftBarButtonItem = status ? leftBarButton : nil
-        if status, tableView.isEditing { toggleEditingBarButton(navigationItem.leftBarButtonItem!) }
     }
     
     func toggleEditingBarButton(_ button: UIBarButtonItem) {
