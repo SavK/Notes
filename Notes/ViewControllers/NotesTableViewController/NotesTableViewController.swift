@@ -18,7 +18,7 @@ class NotesTableViewController: UITableViewController {
     let noteBook = FileNotebook.notebook
     let dbOperationQueue = OperationQueue()
     let backendOperationQueue = OperationQueue()
-    var activityIndicator = UIActivityIndicatorView(style: .gray)
+    let deleteNoteActivityIndicator = UIActivityIndicatorView(style: .gray)
     var selectedIndex: Int?
     var notes: [Note] = []
     /// Internet connection monitor
@@ -60,9 +60,8 @@ class NotesTableViewController: UITableViewController {
                                                name: UIApplication.willResignActiveNotification,
                                                object: nil)
         /// Customizing
-        activityIndicator.color = .black
-        activityIndicator.hidesWhenStopped = true
-        view.addSubview(activityIndicator)
+        deleteNoteActivityIndicator.hidesWhenStopped = true
+        view.addSubview(deleteNoteActivityIndicator)
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -44,9 +44,7 @@ extension SaveNotesBackendOperation {
     
     private func postGist(data: Data) {
         let isPublic = false
-        let gistFileWithNotes = FileContent(content: String(data: data,
-                                                            encoding: .utf8)!)
-        
+        let gistFileWithNotes = FileContent(content: String(data: data, encoding: .utf8)!)
         let gistFiles = [UserSettings.shared.gitHubGistFileName: gistFileWithNotes]
         
         let gist = SendGistProperties(gistsDescription: gistDescription,

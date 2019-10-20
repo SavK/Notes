@@ -28,10 +28,9 @@ class EditNoteViewController: UIViewController {
     @IBOutlet var redSquare: ColorSquareView!
     @IBOutlet var greenSquare: ColorSquareView!
     @IBOutlet var customSquare: ColorSquareView!
-    /// CoreData context
-    var backgroundContext: NSManagedObjectContext!
     
     // MARK: - Properties
+    let saveNoteActivityIndicator = UIActivityIndicatorView(style: .gray)
     let averageBrightness: CGFloat = 0.5
     var note = Note(title: "", content: "", importance: .normal, selfDestructionDate: nil)
     weak var delegate: NoteDelegate!
@@ -46,6 +45,8 @@ class EditNoteViewController: UIViewController {
                                                alpha: 1)
         }
     }
+    /// CoreData context
+    var backgroundContext: NSManagedObjectContext!
     
     // MARK: - UIViewController Methods
     override func viewDidLoad() {
@@ -67,6 +68,7 @@ class EditNoteViewController: UIViewController {
     
     // MARK: - IB Actions
     @IBAction func saveButtonTapped(_ sender: Any) {
+        setupSaveNoteActivityIndicator()
         saveNoteData()
     }
     
@@ -92,13 +94,11 @@ class EditNoteViewController: UIViewController {
         if (sender.view as? ColorSquareView)?.squareColor != nil {
             pickSquare(square: sender.view as? ColorSquareView)
         } else {
-            let alert = UIAlertController(title: "Color picker",
-                                          message: "For open the color palette please press and hold (make long tap)",
-                                          preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-            
-            self.present(alert, animated: true)
+            let alertAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            UIAlertController.showAlert(withTitle: "Color picker",
+                                        message: "For open the color palette please press and hold (make long tap)",
+                                        actions: [alertAction],
+                                        target: self)
         }
     }
     

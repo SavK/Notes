@@ -13,8 +13,8 @@ extension NotesTableViewController {
     
     func loadNetworkConnectionMonitor() {
         monitor.pathUpdateHandler = { pathUpdateHandler in
-            UserSettings.shared.isInternetConnectionOn = pathUpdateHandler.status == .satisfied ?
-                true : false
+            UserSettings.shared.isInternetConnectionOn =
+                pathUpdateHandler.status == .satisfied ? true : false
         }
         monitor.start(queue: monitorNWConnectionQueue)
     }
@@ -44,13 +44,13 @@ extension NotesTableViewController {
         present(authenticationViewController, animated: false, completion: nil)
     }
     
-    func activityIndicatorStart() {
-        self.activityIndicator.startAnimating()
+    func deleteNoteActivityIndicatorStart() {
+        self.deleteNoteActivityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
     }
     
-    func activityIndicatorStop() {
-        self.activityIndicator.stopAnimating()
+    func deleteNoteActivityIndicatorStop() {
+        self.deleteNoteActivityIndicator.stopAnimating()
         UIApplication.shared.endIgnoringInteractionEvents()
     }
 }

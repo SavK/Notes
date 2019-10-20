@@ -14,6 +14,8 @@ extension AuthenticationViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView,
                  decidePolicyFor navigationAction: WKNavigationAction,
                  decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        /// Stop animating
+        loadAuthenticationViewIndicator.stopAnimating()
         /// Stop auth if internet connection is lost
         guard UserSettings.shared.isInternetConnectionOn else {
             decisionHandler(.cancel)

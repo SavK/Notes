@@ -23,7 +23,7 @@ class LoadNotesBackendOperation: BaseBackendOperation {
     override init() {
         super.init()
         
-        if !UserSettings.shared.isLoginedInGitHub {
+        if UserSettings.shared.isNeedAuthorization || !UserSettings.shared.isLoginedInGitHub {
             cancel()
         }
     }

@@ -18,7 +18,7 @@ class UserSettings {
     var isLoginedInGitHub: Bool {
         return !gitHubToken.isEmpty
     }
-    
+    var isNeedAuthorization = true
     var isInternetConnectionOn = false
     /// Private init
     private init() {}

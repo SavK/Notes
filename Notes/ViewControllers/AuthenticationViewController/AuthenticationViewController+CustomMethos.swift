@@ -10,9 +10,15 @@ import Foundation
 
 extension AuthenticationViewController {
     
-    func setupViews() {
+    func setupWebView() {
         view.backgroundColor = .white
         webView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(webView)
+    }
+    
+    func setupLoadAuthenticationViewIndicator() {
+        view.addSubview(loadAuthenticationViewIndicator)
+        loadAuthenticationViewIndicator.center = view.center
+        loadAuthenticationViewIndicator.startAnimating()
     }
 }

@@ -25,4 +25,10 @@ extension EditNoteViewController {
         guard let square = squares.first(where: { $0 != nil && $0!.isSelect }) else { return nil }
         return square?.squareColor
     }
+    
+    func setupSaveNoteActivityIndicator() {
+        self.navigationItem.rightBarButtonItem = nil
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: saveNoteActivityIndicator)
+        saveNoteActivityIndicator.startAnimating()
+    }
 }

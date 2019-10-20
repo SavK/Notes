@@ -14,6 +14,7 @@ final class AuthenticationViewController: UIViewController {
     // MARK: - Properties
     private var access_token = ""
     
+    let loadAuthenticationViewIndicator = UIActivityIndicatorView(style: .gray)
     let webView = WKWebView()
     var info = UserInfo()
     var haveCode = false
@@ -28,7 +29,7 @@ final class AuthenticationViewController: UIViewController {
     // MARK: - UIViewController Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViews()
+        setupWebView()
         
         guard let request = codeGetRequest else { return }
         webView.load(request)
@@ -40,7 +41,14 @@ final class AuthenticationViewController: UIViewController {
         }
     }
     
-    override func viewDidLayoutSubviews() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        setupLoadAuthenticationViewIndicator()
         webView.frame = self.view.bounds
     }
+//    
+//    override func viewDidLayoutSubviews() {
+//        //webView.frame = self.view.bounds
+//    }
 }
