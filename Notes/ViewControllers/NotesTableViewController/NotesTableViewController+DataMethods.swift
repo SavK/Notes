@@ -31,10 +31,16 @@ extension NotesTableViewController {
             let noAction = UIAlertAction(title: "No", style: .cancel) { _ in
                 userSettings.isNeedAuthorization = false
             }
+            let message =
+"""
+Sorry, but you are not logged in.
+Would you like to log into your GitHub account now?
+"""
+            
             UIAlertController.showAlert(withTitle: "You are not logged in GitHub",
-                                        message:
-                "Sorry, but you are not logged in. Would you like to log into your GitHub account now?",
-                                        actions: [yesAction, noAction], target: self)
+                                        message: message,
+                                        actions: [yesAction, noAction],
+                                        target: self)
         }
         
         OperationQueue.main.addOperation {

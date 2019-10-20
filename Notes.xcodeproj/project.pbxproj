@@ -70,6 +70,7 @@
 		AD54628222FF4B2E00568F89 /* NotesTableViewController+DataMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD54628122FF4B2E00568F89 /* NotesTableViewController+DataMethods.swift */; };
 		AD54628422FF4FED00568F89 /* EditNoteViewController+DataMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD54628322FF4FED00568F89 /* EditNoteViewController+DataMethods.swift */; };
 		AD7C12D4235C78F20072F2E4 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7C12D3235C78F20072F2E4 /* UIAlertController+Extension.swift */; };
+		AD7C12D6235CED360072F2E4 /* NoteFilesError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7C12D5235CED360072F2E4 /* NoteFilesError.swift */; };
 		AD9F0A692300298B00CD366D /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9F0A682300298B00CD366D /* UserInfo.swift */; };
 		AD9F0A6B230029C200CD366D /* GitHubToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9F0A6A230029C200CD366D /* GitHubToken.swift */; };
 		ADA3557B22D22C3A00AE2E31 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = ADA3557A22D22C3A00AE2E31 /* .gitignore */; };
@@ -181,6 +182,7 @@
 		AD54628122FF4B2E00568F89 /* NotesTableViewController+DataMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotesTableViewController+DataMethods.swift"; sourceTree = "<group>"; };
 		AD54628322FF4FED00568F89 /* EditNoteViewController+DataMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditNoteViewController+DataMethods.swift"; sourceTree = "<group>"; };
 		AD7C12D3235C78F20072F2E4 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
+		AD7C12D5235CED360072F2E4 /* NoteFilesError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteFilesError.swift; sourceTree = "<group>"; };
 		AD9F0A682300298B00CD366D /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		AD9F0A6A230029C200CD366D /* GitHubToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubToken.swift; sourceTree = "<group>"; };
 		ADA3557A22D22C3A00AE2E31 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -284,6 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				AD010E4E22F1EE8E00B1DEBA /* NetworkError.swift */,
+				AD7C12D5235CED360072F2E4 /* NoteFilesError.swift */,
 			);
 			path = Errors;
 			sourceTree = "<group>";
@@ -800,6 +803,7 @@
 				ADF2670322E4E72A0008D4B0 /* ColorPickerView.swift in Sources */,
 				AD3DDC1122E25B6D00647F07 /* ImageGalleryViewController+UINavigationControllerDelegate.swift in Sources */,
 				AD3D5697235901F80048DCCB /* NoteColor.swift in Sources */,
+				AD7C12D6235CED360072F2E4 /* NoteFilesError.swift in Sources */,
 				ADA7B5A02300B455008DEEC2 /* AuthenticationViewController+WKNavigationDelegate.swift in Sources */,
 				ADCCF0C522D0BF340055DE1A /* FileNotebook.swift in Sources */,
 				AD7C12D4235C78F20072F2E4 /* UIAlertController+Extension.swift in Sources */,

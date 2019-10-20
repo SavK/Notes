@@ -6,12 +6,16 @@
 //  Copyright © 2019 Savonevich Konstantin. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 // MARK: - Selectors
 extension NotesTableViewController {
     
     @objc func saveNotes() {
-        noteBook.saveNotesToFile()
+        do { try noteBook.saveNotesToFile()
+        } catch {
+            UIAlertController.showErrorAlert(withTitle: "ERROR: Notes didn't saved",
+                                             target: self)
+        }
     }
 }

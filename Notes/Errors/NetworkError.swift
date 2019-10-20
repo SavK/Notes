@@ -6,6 +6,6 @@
 //  Copyright © 2019 Savonevich Konstantin. All rights reserved.
 //
 
-enum NetworkError {
+enum NetworkError: Error {
     case unreachable
 }

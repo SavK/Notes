@@ -8,6 +8,7 @@
 
 import CoreData
 import UIKit
+import CocoaLumberjack
 
 class Converter {
     let object: NoteProtocol
@@ -27,7 +28,8 @@ class Converter {
         newNote.selfDestructionDate = object.selfDestructionDate
         
         if object.color.currentColor != UIColor.white {
-            newNote.color = try? JSONEncoder().encode(object.createColorArray())
+            do { newNote.color = try JSONEncoder().encode(object.createColorArray())
+            } catch { DDLogWarn("Error during converting color for DB model.") }
         }
     }
 }

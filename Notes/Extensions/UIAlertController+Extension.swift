@@ -22,4 +22,9 @@ extension UIAlertController {
         actions.forEach { alert.addAction($0) }
         target.present(alert, animated: true, completion: nil)
     }
+    
+    class func showErrorAlert(withTitle title: String, target: UIViewController) {
+        let okAcrion = UIAlertAction(title: "OK", style: .default, handler: nil)
+        showAlert(withTitle: title, message: "", actions: [okAcrion], target: target)
+    }
 }

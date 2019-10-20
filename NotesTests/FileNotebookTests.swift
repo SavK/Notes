@@ -7,7 +7,7 @@ class FileNotebookTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        fileNotebook = FileNotebook(notes: [Note]())
+        fileNotebook = FileNotebook.notebook
     }
 
     override func tearDown() {
@@ -58,7 +58,7 @@ class FileNotebookTests: XCTestCase {
         XCTAssertEqual(note.title, checkedNote.title)
         XCTAssertEqual(note.content, checkedNote.content)
         XCTAssertEqual(note.importance, checkedNote.importance)
-        XCTAssertEqual(note.color, checkedNote.color)
+        XCTAssertEqual(note.color.currentColor, checkedNote.color.currentColor)
 
         XCTAssertNil(note.selfDestructionDate)
         XCTAssertNil(checkedNote.selfDestructionDate)
@@ -86,11 +86,11 @@ class FileNotebookTests: XCTestCase {
         let note2 = Note(title: "New Title",
                          content: "My new text",
                          importance: .important,
-                         color: .red,
+                         color: NoteColor(currentColor: .red),
                          selfDestructionDate: Date())
         fileNotebook.add(note: note2)
 
-        fileNotebook.saveNotesToFile()
+        do { try fileNotebook.saveNotesToFile() } catch { print("Notes saving Error") }
 
         fileNotebook.remove(noteWith: note.uid)
         fileNotebook.remove(noteWith: note2.uid)
@@ -100,11 +100,11 @@ class FileNotebookTests: XCTestCase {
         let note3 = Note(title: "New Title3",
                          content: "My new text3",
                          importance: .unimportant,
-                         color: .green,
+                         color: NoteColor(currentColor: .green),
                          selfDestructionDate: Date())
         fileNotebook.add(note: note3)
 
-        fileNotebook.loadNotesFromFile()
+        do { try fileNotebook.loadNotesFromFile() } catch { print("Notes loading Error") }
 
         let notes = fileNotebook.notes
         XCTAssertEqual(notes.count, 2)
@@ -121,12 +121,12 @@ class FileNotebookTests: XCTestCase {
         let note2 = Note(title: "New Title",
                          content: "My new text",
                          importance: .important,
-                         color: .red,
+                         color: NoteColor(currentColor: .red),
                          selfDestructionDate: Date())
         fileNotebook.add(note: note2)
 
-        fileNotebook.saveNotesToFile()
-        fileNotebook.loadNotesFromFile()
+        do { try fileNotebook.saveNotesToFile() } catch { print("Notes saving Error") }
+        do { try fileNotebook.loadNotesFromFile() } catch { print("Notes loading Error") }
 
         let notes = fileNotebook.notes
 
@@ -140,7 +140,7 @@ class FileNotebookTests: XCTestCase {
         XCTAssertEqual(note.title, checkedNote.title)
         XCTAssertEqual(note.content, checkedNote.content)
         XCTAssertEqual(note.importance, checkedNote.importance)
-        XCTAssertEqual(note.color, checkedNote.color)
+        XCTAssertEqual(note.color.currentColor, checkedNote.color.currentColor)
 
         XCTAssertNil(checkedNote.selfDestructionDate)
 
@@ -155,7 +155,7 @@ class FileNotebookTests: XCTestCase {
         XCTAssertEqual(note2.title, checkedNote2.title)
         XCTAssertEqual(note2.content, checkedNote2.content)
         XCTAssertEqual(note2.importance, checkedNote2.importance)
-        XCTAssertEqual(note2.color, checkedNote2.color)
+        XCTAssertEqual(note2.color.currentColor, checkedNote2.color.currentColor)
 
         XCTAssertNotNil(checkedNote.selfDestructionDate)
 

@@ -56,12 +56,12 @@ class NoteTests: XCTestCase {
     }
     
     func testNote_whenInitialized_setImportance() {
-        XCTAssertEqual(noteMock.importance, importance.rawValue)
+        XCTAssertEqual(noteMock.importance, importance)
     }
     
     
     func testNote_whenInitialized_defaultColor() {
-        XCTAssertEqual(noteMock.color, .white)
+        XCTAssertEqual(noteMock.color.currentColor, .white)
     }
     
     func testNote_whenInitialized_customColor() {
@@ -69,9 +69,9 @@ class NoteTests: XCTestCase {
         let note = Note(title: title,
                         content: content,
                         importance: importance,
-                        color: color)
+                        color: NoteColor(currentColor: color))
         
-        XCTAssertEqual(note.color, color)
+        XCTAssertEqual(note.color.currentColor, color)
     }
     
     func testNote_whenInitialized_defaultDate() {

@@ -48,16 +48,18 @@ class FileNotebook {
         var DirectoryExists: ObjCBool = false
         if !FileManager.default.fileExists(atPath: directoryURL.path,
                                            isDirectory: &DirectoryExists), !DirectoryExists.boolValue {
-            
-            try? FileManager.default.createDirectory(at: directoryURL,
+            do {
+            try FileManager.default.createDirectory(at: directoryURL,
                                                      withIntermediateDirectories: true,
                                                      attributes: nil)
+            }
+            catch { DDLogError("ERROR: Can't create cache directory") }
         }
         return directoryURL.appendingPathComponent("Notes")
     }
     
     /// Save notes as JSON Data into file
-    public func saveNotesToFile() {
+    public func saveNotesToFile() throws {
         let jsonArray = notes.map { $0.json }
         if let data = try? JSONSerialization.data(withJSONObject: jsonArray, options: []) {
             if FileManager.default.createFile(atPath: getCacheFileDirectory().path, contents: data,
@@ -65,9 +67,11 @@ class FileNotebook {
                 DDLogInfo("Notes successfuly saved to DB")
             } else {
                 DDLogError("ERROR: Notes didn't saved")
+                throw NoteFilesError.unsaving
             }
         } else {
             DDLogError("ERROR: Data can't serialized")
+            throw NoteFilesError.unsaving
         }
     }
     
@@ -85,9 +89,11 @@ class FileNotebook {
                 }
             } else {
                 DDLogError("Can't load notes from file.")
+                throw NoteFilesError.unloading
             }
         } catch {
             DDLogError("ERROR load from file: \(error.localizedDescription)")
+            throw NoteFilesError.unloading
         }
     }
     

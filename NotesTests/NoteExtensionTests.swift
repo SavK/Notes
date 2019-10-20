@@ -33,7 +33,7 @@ class NoteExtensionTests: XCTestCase {
         let note = Note(title: "Text",
                         content: "More",
                         importance: .important,
-                        color: .red)
+                        color: NoteColor(currentColor: .red))
         let json = note.json
         let jsonWithoutColor = noteMock.json
         
@@ -78,8 +78,8 @@ class NoteExtensionTests: XCTestCase {
         XCTAssertEqual(noteMock.uid, note.uid)
         XCTAssertEqual(noteMock.title, note.title)
         XCTAssertEqual(noteMock.content, note.content)
-        XCTAssertEqual(noteMock.importance, note.importance)
-        XCTAssertEqual(noteMock.color, note.color)
+        XCTAssertEqual(noteMock.color.currentColor, note.color.currentColor)
+        XCTAssertNotEqual(noteMock.importance, note.importance)
         
         XCTAssertNil(noteMock.selfDestructionDate)
         XCTAssertNil(note.selfDestructionDate)
@@ -89,7 +89,7 @@ class NoteExtensionTests: XCTestCase {
         let originNote = Note(title: "Title1",
                               content: "My text",
                               importance: .unimportant,
-                              color: .red,
+                              color: NoteColor(currentColor: .red),
                               selfDestructionDate: Date(),
                               uid: "1234")
         let _note = getNoteThroughJsonFrom(originNote)
@@ -102,8 +102,8 @@ class NoteExtensionTests: XCTestCase {
         XCTAssertEqual(originNote.uid, note.uid)
         XCTAssertEqual(originNote.title, note.title)
         XCTAssertEqual(originNote.content, note.content)
-        XCTAssertEqual(originNote.importance, note.importance)
-        XCTAssertEqual(originNote.color, note.color)
+        XCTAssertEqual(originNote.color.currentColor, note.color.currentColor)
+        XCTAssertNotEqual(originNote.importance, note.importance)
         
         guard let originDate = originNote.selfDestructionDate,
             let date = note.selfDestructionDate else {

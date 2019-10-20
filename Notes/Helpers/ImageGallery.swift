@@ -33,10 +33,12 @@ class ImageGallery {
         var DirectoryExists: ObjCBool = false
         if !FileManager.default.fileExists(atPath: directoryURL.path,
                                            isDirectory: &DirectoryExists), !DirectoryExists.boolValue {
-            
-            try? FileManager.default.createDirectory(at: directoryURL,
-                                                     withIntermediateDirectories: true,
-                                                     attributes: nil)
+            do {
+                try FileManager.default.createDirectory(at: directoryURL,
+                                                        withIntermediateDirectories: true,
+                                                        attributes: nil)
+            }
+            catch { DDLogError("ERROR: Can't create image cache directory") }
         }
         return directoryURL
     }
@@ -48,14 +50,15 @@ class ImageGallery {
                                                                 options: .skipsHiddenFiles)
         
         guard let imagePaths = URLs else { return }
-        imagePaths.forEach { try? FileManager.default.removeItem(at: $0) }
-//        for imagePath in imagePaths {
-//            try? FileManager.default.removeItem(at: imagePath)
-//        }
+        imagePaths.forEach {
+            do { try FileManager.default.removeItem(at: $0)
+            } catch { DDLogError("ERROR: Can't remove image from cache directory. Image URL: \($0)") }
+        }
         
         for (index, image) in images.enumerated() {
             let imageURL = getCacheFileDirectory().appendingPathComponent("IMG\(index).png")
-            try? image.pngData()?.write(to: imageURL)
+            do { try image.pngData()?.write(to: imageURL)
+            } catch { DDLogError("ERROR: Can't write image to cache directory. Image index: \(index)") }
         }
     }
     
@@ -72,8 +75,7 @@ class ImageGallery {
         })
         
         imagePaths.forEach {
-            if let imageData: Data = try? Data(contentsOf: $0),
-                let image: UIImage = UIImage(data: imageData) {
+            if let imageData = try? Data(contentsOf: $0), let image = UIImage(data: imageData) {
                 newImages.append(image)
             }
         }

@@ -31,6 +31,7 @@ extension NoteEntity {
     
     private func getColor(fromData data: Data?) -> UIColor? {
         guard let data = data else { return nil }
+        
         guard let colorArray = try? JSONDecoder().decode([CGFloat].self, from: data)
             else { return UIColor.white }
         

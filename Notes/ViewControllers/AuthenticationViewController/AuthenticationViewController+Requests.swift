@@ -6,7 +6,7 @@
 //  Copyright © 2019 Savonevich Konstantin. All rights reserved.
 //
 
-import Foundation
+import CocoaLumberjack
 
 extension AuthenticationViewController {
     
@@ -35,9 +35,16 @@ extension AuthenticationViewController {
         let task = URLSession.shared.dataTask(with: request) {  (data, response, error) in
             
             if data != nil {
-                guard let newFiles = try? JSONDecoder().decode(GitHubToken.self, from: data!) else { return }
+                do {
+                let newFiles = try JSONDecoder().decode(GitHubToken.self, from: data!)
                 self.info.token = newFiles.access_token
                 self.delegate?.handleTokenChanged(token: newFiles.access_token)
+                } catch {
+                    UIAlertController.showErrorAlert(withTitle: "ERROR with taking GitHub Token!",
+                                                     target: self)
+                    
+                    DDLogError("ERROR with taking GitHub Token!")
+                }
                 
                 DispatchQueue.main.async {
                     self.dismiss(animated: true, completion: nil)
