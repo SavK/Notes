@@ -1,25 +1,25 @@
 //
-//  NotesTableViewController+DataMethods.swift
+//  NotesPresenter+DataMethods.swift
 //  Notes
 //
-//  Created by Savonevich Constantine on 8/10/19.
+//  Created by Savonevich Constantine on 10/21/19.
 //  Copyright © 2019 Savonevich Konstantin. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import CocoaLumberjack
 
 // MARK: - Data Methods
-extension NotesTableViewController {
+extension NotesPresenter {
     
-    func loadNotesData() {        
+    func loadNotesData() {
         let loadNotes = LoadNotesOperation(notebook: FileNotebook.notebook,
                                            backendQueue: backendOperationQueue,
                                            dbQueue: dbOperationQueue,
                                            backgroundContext: backgroundContext)
         
         let userSettings = UserSettings.shared
-
+        
         if userSettings.isNeedAuthorization,
             !userSettings.isLoginedInGitHub,
             userSettings.isInternetConnectionOn {
@@ -40,11 +40,11 @@ Would you like to log into your GitHub account now?
             UIAlertController.showAlert(withTitle: "You are not logged in GitHub",
                                         message: message,
                                         actions: [yesAction, noAction],
-                                        target: self)
+                                        target: viewController)
         }
         
         OperationQueue.main.addOperation {
-            self.deleteNoteActivityIndicatorStart()
+            self.viewController.deleteNoteActivityIndicatorStart()
         }
         
         loadNotes.completionBlock = { [weak self] in
@@ -52,14 +52,16 @@ Would you like to log into your GitHub account now?
             let loadedNotes = loadNotes.result ?? []
             DDLogDebug(" \(loadedNotes.count) notes was uploaded")
             self.notes = loadedNotes
+            let isNeedEditing = self.notes.count > 0
             OperationQueue.main.addOperation {
-                self.deleteNoteActivityIndicatorStop()
-                self.tableView.reloadData()
-                self.isNeedEditNotes()
+                self.viewController.deleteNoteActivityIndicatorStop()
+                self.viewController.tableView.reloadData()
+                self.viewController.isNeedEditNotes(isNeedEditing)
             }
         }
         OperationQueue().addOperation(loadNotes)
     }
+    
     
     func removeNoteData(at indexPath: IndexPath) {
         let deletedNote = notes[indexPath.row]
@@ -70,17 +72,19 @@ Would you like to log into your GitHub account now?
                                              backgroundContext: backgroundContext)
         
         OperationQueue.main.addOperation {
-            self.deleteNoteActivityIndicatorStart()
+            self.viewController.deleteNoteActivityIndicatorStart()
         }
         ///Delete row with animation
         removeNote.completionBlock = {
             DDLogDebug("Removed tableViewCell at row: \(indexPath.row)")
             OperationQueue.main.addOperation {
                 UIView.animate(withDuration: 0.5) {
-                    self.deleteNoteActivityIndicatorStop()
+                    self.viewController.deleteNoteActivityIndicatorStop()
                     self.notes.remove(at: indexPath.row)
-                    self.tableView.deleteRows(at: [indexPath], with: .left)
-                    self.isNeedEditNotes()
+                    self.viewController.tableView.deleteRows(at: [indexPath], with: .left)
+                    
+                    let isNeedEditing = self.notes.count > 0
+                    self.viewController.isNeedEditNotes(isNeedEditing)
                 }
             }
         }

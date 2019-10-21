@@ -177,7 +177,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="mrX-SM-DDf">
                             <connections>
-                                <action selector="newNoteButtonTapped:" destination="Ds4-6W-ogl" id="nPq-n2-K4e"/>
+                                <action selector="newNoteButtonTapped" destination="Ds4-6W-ogl" id="C5t-6R-RZs"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

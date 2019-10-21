@@ -11,20 +11,6 @@ import UIKit
 // MARK: - Custom Methods
 extension NotesTableViewController {
     
-    func loadNetworkConnectionMonitor() {
-        monitor.pathUpdateHandler = { pathUpdateHandler in
-            UserSettings.shared.isInternetConnectionOn =
-                pathUpdateHandler.status == .satisfied ? true : false
-        }
-        monitor.start(queue: monitorNWConnectionQueue)
-    }
-    
-    func isNeedEditNotes() {
-        let status = notes.count > 0
-        if !status, tableView.isEditing { toggleEditingBarButton(navigationItem.leftBarButtonItem!) }
-        navigationItem.leftBarButtonItem = status ? leftBarButton : nil
-    }
-    
     func toggleEditingBarButton(_ button: UIBarButtonItem) {
         if !tableView.isEditing {
             tableView.setEditing(true, animated: true)
@@ -37,11 +23,11 @@ extension NotesTableViewController {
         }
     }
     
-    func requestToken() {
-        let authenticationViewController = AuthenticationViewController()
-        authenticationViewController.delegate = self
-        authenticationViewController.modalPresentationStyle = .fullScreen
-        present(authenticationViewController, animated: false, completion: nil)
+    func isNeedEditNotes(_ status: Bool) {
+        if !status, tableView.isEditing {
+            toggleEditingBarButton(navigationItem.leftBarButtonItem!)
+        }
+        navigationItem.leftBarButtonItem = status ? leftBarButton : nil
     }
     
     func deleteNoteActivityIndicatorStart() {

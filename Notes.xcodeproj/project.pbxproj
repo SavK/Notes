@@ -66,11 +66,19 @@
 		AD54627722FF3EDA00568F89 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD54627622FF3EDA00568F89 /* UserSettings.swift */; };
 		AD54627B22FF483F00568F89 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD54627A22FF483F00568F89 /* AuthenticationViewController.swift */; };
 		AD54627D22FF494400568F89 /* AuthenticationViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD54627C22FF494400568F89 /* AuthenticationViewControllerDelegate.swift */; };
-		AD54628022FF4A6400568F89 /* NotesTableViewController+AuthenticationViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD54627F22FF4A6400568F89 /* NotesTableViewController+AuthenticationViewControllerDelegate.swift */; };
-		AD54628222FF4B2E00568F89 /* NotesTableViewController+DataMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD54628122FF4B2E00568F89 /* NotesTableViewController+DataMethods.swift */; };
 		AD54628422FF4FED00568F89 /* EditNoteViewController+DataMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD54628322FF4FED00568F89 /* EditNoteViewController+DataMethods.swift */; };
 		AD7C12D4235C78F20072F2E4 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7C12D3235C78F20072F2E4 /* UIAlertController+Extension.swift */; };
 		AD7C12D6235CED360072F2E4 /* NoteFilesError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7C12D5235CED360072F2E4 /* NoteFilesError.swift */; };
+		AD7C12D9235D1BFF0072F2E4 /* NotesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7C12D8235D1BFF0072F2E4 /* NotesPresenter.swift */; };
+		AD7C12DB235D1CA70072F2E4 /* NotesPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7C12DA235D1CA70072F2E4 /* NotesPresenterProtocol.swift */; };
+		AD7C12DD235D1D100072F2E4 /* NotesTableViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7C12DC235D1D100072F2E4 /* NotesTableViewControllerProtocol.swift */; };
+		AD7C12E0235DA2570072F2E4 /* NotesPresenter+TableViewMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7C12DF235DA2570072F2E4 /* NotesPresenter+TableViewMethods.swift */; };
+		AD7C12E2235DA3AA0072F2E4 /* NotesPresenter+Selectors.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7C12E1235DA3AA0072F2E4 /* NotesPresenter+Selectors.swift */; };
+		AD7C12E4235DA4110072F2E4 /* NotesPresenter+DataMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7C12E3235DA4110072F2E4 /* NotesPresenter+DataMethods.swift */; };
+		AD7C12E6235DABE60072F2E4 /* NotesPresenter+AuthenticationViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7C12E5235DABE60072F2E4 /* NotesPresenter+AuthenticationViewControllerDelegate.swift */; };
+		AD7C12E8235DAC2E0072F2E4 /* NotesPresenter+NoteDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7C12E7235DAC2E0072F2E4 /* NotesPresenter+NoteDelegate.swift */; };
+		AD7C12EA235DAC6C0072F2E4 /* NotesPresenter+CustomMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7C12E9235DAC6C0072F2E4 /* NotesPresenter+CustomMethods.swift */; };
+		AD7C12EC235DAD1B0072F2E4 /* NotesPresenter+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7C12EB235DAD1B0072F2E4 /* NotesPresenter+Navigation.swift */; };
 		AD9F0A692300298B00CD366D /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9F0A682300298B00CD366D /* UserInfo.swift */; };
 		AD9F0A6B230029C200CD366D /* GitHubToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9F0A6A230029C200CD366D /* GitHubToken.swift */; };
 		ADA3557B22D22C3A00AE2E31 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = ADA3557A22D22C3A00AE2E31 /* .gitignore */; };
@@ -91,11 +99,9 @@
 		ADF2670822E4FACF0008D4B0 /* ColorPickerView+UIMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF2670722E4FACF0008D4B0 /* ColorPickerView+UIMethods.swift */; };
 		ADF2670A22E4FDAA0008D4B0 /* ColorPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADF2670922E4FDAA0008D4B0 /* ColorPickerView.xib */; };
 		ADF2670C22E502BB0008D4B0 /* NotesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF2670B22E502BB0008D4B0 /* NotesTableViewController.swift */; };
-		ADF2670F22E503640008D4B0 /* NotesTableViewController+NoteDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF2670E22E503630008D4B0 /* NotesTableViewController+NoteDelegate.swift */; };
 		ADF2671122E504A70008D4B0 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF2671022E504A70008D4B0 /* NoteTableViewCell.swift */; };
 		ADF2671322E5098F0008D4B0 /* NotesTableViewController+UITableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF2671222E5098F0008D4B0 /* NotesTableViewController+UITableViewDataSource.swift */; };
 		ADF2671522E509A20008D4B0 /* NotesTableViewController+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF2671422E509A20008D4B0 /* NotesTableViewController+UITableViewDelegate.swift */; };
-		ADF2671722E511D80008D4B0 /* NotesTableViewController+Selectors.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF2671622E511D80008D4B0 /* NotesTableViewController+Selectors.swift */; };
 		ADF2671922E512F10008D4B0 /* NotesTableViewController+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF2671822E512F10008D4B0 /* NotesTableViewController+Navigation.swift */; };
 		ADF2671B22E514080008D4B0 /* NotesTableViewController+CustomMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF2671A22E514080008D4B0 /* NotesTableViewController+CustomMethods.swift */; };
 		ADF2671D22E5146A0008D4B0 /* NoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADF2671C22E5146A0008D4B0 /* NoteTableViewCell.xib */; };
@@ -178,11 +184,19 @@
 		AD54627622FF3EDA00568F89 /* UserSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		AD54627A22FF483F00568F89 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		AD54627C22FF494400568F89 /* AuthenticationViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewControllerDelegate.swift; sourceTree = "<group>"; };
-		AD54627F22FF4A6400568F89 /* NotesTableViewController+AuthenticationViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotesTableViewController+AuthenticationViewControllerDelegate.swift"; sourceTree = "<group>"; };
-		AD54628122FF4B2E00568F89 /* NotesTableViewController+DataMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotesTableViewController+DataMethods.swift"; sourceTree = "<group>"; };
 		AD54628322FF4FED00568F89 /* EditNoteViewController+DataMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditNoteViewController+DataMethods.swift"; sourceTree = "<group>"; };
 		AD7C12D3235C78F20072F2E4 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
 		AD7C12D5235CED360072F2E4 /* NoteFilesError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteFilesError.swift; sourceTree = "<group>"; };
+		AD7C12D8235D1BFF0072F2E4 /* NotesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesPresenter.swift; sourceTree = "<group>"; };
+		AD7C12DA235D1CA70072F2E4 /* NotesPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesPresenterProtocol.swift; sourceTree = "<group>"; };
+		AD7C12DC235D1D100072F2E4 /* NotesTableViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTableViewControllerProtocol.swift; sourceTree = "<group>"; };
+		AD7C12DF235DA2570072F2E4 /* NotesPresenter+TableViewMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotesPresenter+TableViewMethods.swift"; sourceTree = "<group>"; };
+		AD7C12E1235DA3AA0072F2E4 /* NotesPresenter+Selectors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotesPresenter+Selectors.swift"; sourceTree = "<group>"; };
+		AD7C12E3235DA4110072F2E4 /* NotesPresenter+DataMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotesPresenter+DataMethods.swift"; sourceTree = "<group>"; };
+		AD7C12E5235DABE60072F2E4 /* NotesPresenter+AuthenticationViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotesPresenter+AuthenticationViewControllerDelegate.swift"; sourceTree = "<group>"; };
+		AD7C12E7235DAC2E0072F2E4 /* NotesPresenter+NoteDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotesPresenter+NoteDelegate.swift"; sourceTree = "<group>"; };
+		AD7C12E9235DAC6C0072F2E4 /* NotesPresenter+CustomMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotesPresenter+CustomMethods.swift"; sourceTree = "<group>"; };
+		AD7C12EB235DAD1B0072F2E4 /* NotesPresenter+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotesPresenter+Navigation.swift"; sourceTree = "<group>"; };
 		AD9F0A682300298B00CD366D /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		AD9F0A6A230029C200CD366D /* GitHubToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubToken.swift; sourceTree = "<group>"; };
 		ADA3557A22D22C3A00AE2E31 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -206,11 +220,9 @@
 		ADF2670722E4FACF0008D4B0 /* ColorPickerView+UIMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColorPickerView+UIMethods.swift"; sourceTree = "<group>"; };
 		ADF2670922E4FDAA0008D4B0 /* ColorPickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorPickerView.xib; sourceTree = "<group>"; };
 		ADF2670B22E502BB0008D4B0 /* NotesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTableViewController.swift; sourceTree = "<group>"; };
-		ADF2670E22E503630008D4B0 /* NotesTableViewController+NoteDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotesTableViewController+NoteDelegate.swift"; sourceTree = "<group>"; };
 		ADF2671022E504A70008D4B0 /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 		ADF2671222E5098F0008D4B0 /* NotesTableViewController+UITableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotesTableViewController+UITableViewDataSource.swift"; sourceTree = "<group>"; };
 		ADF2671422E509A20008D4B0 /* NotesTableViewController+UITableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotesTableViewController+UITableViewDelegate.swift"; sourceTree = "<group>"; };
-		ADF2671622E511D80008D4B0 /* NotesTableViewController+Selectors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotesTableViewController+Selectors.swift"; sourceTree = "<group>"; };
 		ADF2671822E512F10008D4B0 /* NotesTableViewController+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotesTableViewController+Navigation.swift"; sourceTree = "<group>"; };
 		ADF2671A22E514080008D4B0 /* NotesTableViewController+CustomMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotesTableViewController+CustomMethods.swift"; sourceTree = "<group>"; };
 		ADF2671C22E5146A0008D4B0 /* NoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteTableViewCell.xib; sourceTree = "<group>"; };
@@ -349,8 +361,8 @@
 			isa = PBXGroup;
 			children = (
 				AD1550FF23593F9D0099D18B /* Delegates */,
-				AD3D569B23590DD20048DCCB /* NoteProtocol.swift */,
-				AD155100235946AE0099D18B /* NoteColorProtocol.swift */,
+				AD7C12DE235D1EED0072F2E4 /* Model */,
+				AD7C12EF235DB53F0072F2E4 /* Notes */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -401,6 +413,7 @@
 				AD3DDC0722E24DC500647F07 /* Helpers */,
 				ADCCF0AC22CB35E10055DE1A /* Model */,
 				AD010E3222F1ED0500B1DEBA /* Operations */,
+				AD7C12D7235D1BD90072F2E4 /* Presenters */,
 				AD3DDC1F22E2647A00647F07 /* Protocols */,
 				AD8921ED22DAF81A0044D849 /* Resources */,
 				AD8921EF22DAF83D0044D849 /* Storyboards */,
@@ -419,6 +432,47 @@
 				ADA7B59F2300B455008DEEC2 /* AuthenticationViewController+WKNavigationDelegate.swift */,
 			);
 			path = AuthenticationViewController;
+			sourceTree = "<group>";
+		};
+		AD7C12D7235D1BD90072F2E4 /* Presenters */ = {
+			isa = PBXGroup;
+			children = (
+				AD7C12EE235DB5180072F2E4 /* NotesPresenter */,
+			);
+			path = Presenters;
+			sourceTree = "<group>";
+		};
+		AD7C12DE235D1EED0072F2E4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AD3D569B23590DD20048DCCB /* NoteProtocol.swift */,
+				AD155100235946AE0099D18B /* NoteColorProtocol.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AD7C12EE235DB5180072F2E4 /* NotesPresenter */ = {
+			isa = PBXGroup;
+			children = (
+				AD7C12D8235D1BFF0072F2E4 /* NotesPresenter.swift */,
+				AD7C12E5235DABE60072F2E4 /* NotesPresenter+AuthenticationViewControllerDelegate.swift */,
+				AD7C12E9235DAC6C0072F2E4 /* NotesPresenter+CustomMethods.swift */,
+				AD7C12E3235DA4110072F2E4 /* NotesPresenter+DataMethods.swift */,
+				AD7C12EB235DAD1B0072F2E4 /* NotesPresenter+Navigation.swift */,
+				AD7C12E7235DAC2E0072F2E4 /* NotesPresenter+NoteDelegate.swift */,
+				AD7C12E1235DA3AA0072F2E4 /* NotesPresenter+Selectors.swift */,
+				AD7C12DF235DA2570072F2E4 /* NotesPresenter+TableViewMethods.swift */,
+			);
+			path = NotesPresenter;
+			sourceTree = "<group>";
+		};
+		AD7C12EF235DB53F0072F2E4 /* Notes */ = {
+			isa = PBXGroup;
+			children = (
+				AD7C12DA235D1CA70072F2E4 /* NotesPresenterProtocol.swift */,
+				AD7C12DC235D1D100072F2E4 /* NotesTableViewControllerProtocol.swift */,
+			);
+			path = Notes;
 			sourceTree = "<group>";
 		};
 		AD8921ED22DAF81A0044D849 /* Resources */ = {
@@ -546,12 +600,8 @@
 			isa = PBXGroup;
 			children = (
 				ADF2670B22E502BB0008D4B0 /* NotesTableViewController.swift */,
-				AD54627F22FF4A6400568F89 /* NotesTableViewController+AuthenticationViewControllerDelegate.swift */,
 				ADF2671A22E514080008D4B0 /* NotesTableViewController+CustomMethods.swift */,
-				AD54628122FF4B2E00568F89 /* NotesTableViewController+DataMethods.swift */,
 				ADF2671822E512F10008D4B0 /* NotesTableViewController+Navigation.swift */,
-				ADF2670E22E503630008D4B0 /* NotesTableViewController+NoteDelegate.swift */,
-				ADF2671622E511D80008D4B0 /* NotesTableViewController+Selectors.swift */,
 				ADF2671222E5098F0008D4B0 /* NotesTableViewController+UITableViewDataSource.swift */,
 				ADF2671422E509A20008D4B0 /* NotesTableViewController+UITableViewDelegate.swift */,
 			);
@@ -740,7 +790,9 @@
 				AD3DDC3922E48FD800647F07 /* ImageGalleryViewController+Selectors.swift in Sources */,
 				ADF2670C22E502BB0008D4B0 /* NotesTableViewController.swift in Sources */,
 				AD54627B22FF483F00568F89 /* AuthenticationViewController.swift in Sources */,
+				AD7C12E2235DA3AA0072F2E4 /* NotesPresenter+Selectors.swift in Sources */,
 				AD3DDC2C22E471B000647F07 /* EditNoteViewController+UITextFieldDelegate.swift in Sources */,
+				AD7C12EA235DAC6C0072F2E4 /* NotesPresenter+CustomMethods.swift in Sources */,
 				ADF2671922E512F10008D4B0 /* NotesTableViewController+Navigation.swift in Sources */,
 				AD3DDC2122E2649100647F07 /* ColorDelegate.swift in Sources */,
 				AD3DDC1522E25C3B00647F07 /* ImageGalleryViewController+UICollectionViewDataSource.swift in Sources */,
@@ -756,7 +808,6 @@
 				ADF2671322E5098F0008D4B0 /* NotesTableViewController+UITableViewDataSource.swift in Sources */,
 				AD3DDC1922E25DC800647F07 /* ImageGalleryViewController+UICollectionViewDelegate.swift in Sources */,
 				AD02EBEE23097C2600CFD170 /* NoteEntity+Methods.swift in Sources */,
-				AD54628222FF4B2E00568F89 /* NotesTableViewController+DataMethods.swift in Sources */,
 				AD02EBF023097C3E00CFD170 /* NoteEntity+CoreDataClass.swift in Sources */,
 				AD3DDC0922E24F2A00647F07 /* ImageGalleryViewController.swift in Sources */,
 				ADF2670622E4FA300008D4B0 /* ColorPickerView+DrawMethods.swift in Sources */,
@@ -770,9 +821,9 @@
 				AD010E4622F1EE1300B1DEBA /* BaseBackendOperation.swift in Sources */,
 				AD3DDC1322E25BEB00647F07 /* ImageGalleryViewController+Navigation.swift in Sources */,
 				ADCCF0C422D0BF340055DE1A /* NoteExtension.swift in Sources */,
-				AD54628022FF4A6400568F89 /* NotesTableViewController+AuthenticationViewControllerDelegate.swift in Sources */,
 				AD3D569A235909E70048DCCB /* Converter.swift in Sources */,
 				AD3DDC1B22E25E6200647F07 /* ImageGalleryScrollViewController+UIScrollViewDelegate.swift in Sources */,
+				AD7C12EC235DAD1B0072F2E4 /* NotesPresenter+Navigation.swift in Sources */,
 				AD54627122FF3E8000568F89 /* Owner.swift in Sources */,
 				AD3DDC3322E4776A00647F07 /* ColorSquareView.swift in Sources */,
 				AD9F0A6B230029C200CD366D /* GitHubToken.swift in Sources */,
@@ -783,11 +834,12 @@
 				AD3DDC1722E25CD400647F07 /* ImageGalleryViewController+UICollectionViewDelegateFlowLayout.swift in Sources */,
 				ADF2670822E4FACF0008D4B0 /* ColorPickerView+UIMethods.swift in Sources */,
 				AD3DDC0F22E25B3F00647F07 /* ImageGalleryViewController+UIImagePickerControllerDelegate.swift in Sources */,
+				AD7C12DB235D1CA70072F2E4 /* NotesPresenterProtocol.swift in Sources */,
 				AD54628422FF4FED00568F89 /* EditNoteViewController+DataMethods.swift in Sources */,
 				AD54627722FF3EDA00568F89 /* UserSettings.swift in Sources */,
-				ADF2671722E511D80008D4B0 /* NotesTableViewController+Selectors.swift in Sources */,
 				AD010E4322F1EDF000B1DEBA /* RemoveNoteDBOperation.swift in Sources */,
 				AD02EBE223097B3A00CFD170 /* Notebook.xcdatamodeld in Sources */,
+				AD7C12E8235DAC2E0072F2E4 /* NotesPresenter+NoteDelegate.swift in Sources */,
 				AD010E3622F1ED4400B1DEBA /* LoadNotesOperation.swift in Sources */,
 				ADF266FF22E4BDF60008D4B0 /* EditNoteViewController+CustomMethods.swift in Sources */,
 				AD010E3A22F1ED8200B1DEBA /* AsyncOperation.swift in Sources */,
@@ -795,12 +847,15 @@
 				AD010E3D22F1EDAE00B1DEBA /* BaseDBOperation.swift in Sources */,
 				AD9F0A692300298B00CD366D /* UserInfo.swift in Sources */,
 				AD010E3422F1ED2800B1DEBA /* SaveNoteOperation.swift in Sources */,
+				AD7C12E6235DABE60072F2E4 /* NotesPresenter+AuthenticationViewControllerDelegate.swift in Sources */,
 				AD3DDC2822E470B800647F07 /* ColorPickerViewController+UIGestureRecognizerDelegate.swift in Sources */,
 				ADF2670122E4C0D80008D4B0 /* ColorPaletteView.swift in Sources */,
-				ADF2670F22E503640008D4B0 /* NotesTableViewController+NoteDelegate.swift in Sources */,
+				AD7C12E4235DA4110072F2E4 /* NotesPresenter+DataMethods.swift in Sources */,
 				ADC4B26F2308B1E800CC815D /* UIClolor+Extension.swift in Sources */,
 				AD54627322FF3E8000568F89 /* GitHubGist.swift in Sources */,
+				AD7C12D9235D1BFF0072F2E4 /* NotesPresenter.swift in Sources */,
 				ADF2670322E4E72A0008D4B0 /* ColorPickerView.swift in Sources */,
+				AD7C12DD235D1D100072F2E4 /* NotesTableViewControllerProtocol.swift in Sources */,
 				AD3DDC1122E25B6D00647F07 /* ImageGalleryViewController+UINavigationControllerDelegate.swift in Sources */,
 				AD3D5697235901F80048DCCB /* NoteColor.swift in Sources */,
 				AD7C12D6235CED360072F2E4 /* NoteFilesError.swift in Sources */,
@@ -815,6 +870,7 @@
 				AD010E4F22F1EE8E00B1DEBA /* NetworkError.swift in Sources */,
 				ADF2671122E504A70008D4B0 /* NoteTableViewCell.swift in Sources */,
 				AD4960A722CA6CFC005E5FE0 /* AppDelegate.swift in Sources */,
+				AD7C12E0235DA2570072F2E4 /* NotesPresenter+TableViewMethods.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

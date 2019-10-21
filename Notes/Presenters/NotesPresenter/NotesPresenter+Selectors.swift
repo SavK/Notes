@@ -1,21 +1,21 @@
 //
-//  NotesTableViewController+Selectors.swift
+//  NotesPresenter+Selectors.swift
 //  Notes
 //
-//  Created by Savonevich Constantine on 7/22/19.
+//  Created by Savonevich Constantine on 10/21/19.
 //  Copyright © 2019 Savonevich Konstantin. All rights reserved.
 //
 
 import UIKit
 
 // MARK: - Selectors
-extension NotesTableViewController {
+extension NotesPresenter {
     
     @objc func saveNotes() {
         do { try noteBook.saveNotesToFile()
         } catch {
             UIAlertController.showErrorAlert(withTitle: "ERROR: Notes didn't saved",
-                                             target: self)
+                                             target: viewController)
         }
     }
 }

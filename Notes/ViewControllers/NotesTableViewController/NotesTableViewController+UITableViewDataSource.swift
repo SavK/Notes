@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CocoaLumberjack
 
 // MARK: - UITableViewDataSource
 extension NotesTableViewController {
@@ -15,31 +14,19 @@ extension NotesTableViewController {
     override func tableView(_ tableView: UITableView,
                             numberOfRowsInSection section: Int) -> Int {
         
-        return notes.count
+        return presenter.notes.count
     }
     
     override func tableView(_ tableView: UITableView,
                             cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let note = notes[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "noteCell",
-                                                 for: indexPath) as! NoteTableViewCell
-        
-        cell.noteColorView?.backgroundColor = note.color.currentColor
-        cell.noteTitleLabel?.text = note.title
-        cell.noteContentLabel?.text = note.content
-        deleteNoteActivityIndicator.center = cell.noteColorView.center
-        
-        return cell
+        return presenter.createTableViewCell(forRowAt: indexPath)
     }
     
     override func tableView(_ tableView: UITableView,
                             commit editingStyle: UITableViewCell.EditingStyle,
                             forRowAt indexPath: IndexPath) {
         
-        if editingStyle == .delete {
-            tableView.reloadData()
-            removeNoteData(at: indexPath)
-        }
+        presenter.changeEditingStyleActions(editingStyle: editingStyle, forRowAt: indexPath)
     }
 }

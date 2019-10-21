@@ -29,7 +29,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let navigationController = tabBarController.viewControllers?.first as? UINavigationController,
                 let notesTableViewController = navigationController.topViewController as? NotesTableViewController {
                 
-                notesTableViewController.backgroundContext = container.newBackgroundContext()
+                notesTableViewController.presenter = NotesPresenter(viewController: notesTableViewController)
+                notesTableViewController.presenter.backgroundContext = container.newBackgroundContext()
+//                notesTableViewController.backgroundContext = container.newBackgroundContext()
             }
         }
         
