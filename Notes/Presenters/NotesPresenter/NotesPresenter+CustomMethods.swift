@@ -18,21 +18,4 @@ extension NotesPresenter {
         }
         monitor.start(queue: monitorNWConnectionQueue)
     }
-    
-    func requestToken() {
-        let authenticationViewController = AuthenticationViewController()
-        authenticationViewController.delegate = self
-        authenticationViewController.modalPresentationStyle = .fullScreen
-        viewController.present(authenticationViewController, animated: false, completion: nil)
-    }
-    
-    func newNoteButtonAction() {
-        selectedIndex = nil
-        viewController.performSegue(withIdentifier: "showEditView", sender: nil)
-
-        if viewController.tableView.isEditing {
-            guard let editButton = viewController.navigationItem.leftBarButtonItem else { return }
-            viewController.toggleEditingBarButton(editButton)
-        }
-    }
 }

@@ -31,8 +31,9 @@ extension EditNoteViewController {
         
         /// Add SaveNoteOperation
         if title != "" || content != "" {
+            guard let noteBook = noteBook else { return }
             let saveNoteOperation = SaveNoteOperation(note: newNote,
-                                                      notebook: FileNotebook.notebook,
+                                                      notebook: noteBook,
                                                       backendQueue: OperationQueue(),
                                                       dbQueue: OperationQueue(),
                                                       backgroundContext: backgroundContext)

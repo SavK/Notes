@@ -15,7 +15,7 @@ class NotesPresenter: NotesPresenterProtocol {
     unowned let viewController: NotesTableViewControllerProtocol
     /// Model Properties
     var notes: [Note] = []
-    let noteBook = FileNotebook.notebook
+    let noteBook = FileNotebook()
     /// Concurrency
     let dbOperationQueue = OperationQueue()
     let backendOperationQueue = OperationQueue()
@@ -38,13 +38,5 @@ class NotesPresenter: NotesPresenterProtocol {
         
         dbOperationQueue.maxConcurrentOperationCount = 1
         backendOperationQueue.maxConcurrentOperationCount = 1
-        
-        viewController.tableView.register(UINib(nibName: "NoteTableViewCell", bundle: nil),
-                                          forCellReuseIdentifier: "noteCell")
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(saveNotes),
-                                               name: UIApplication.willResignActiveNotification,
-                                               object: nil)
     }
 }

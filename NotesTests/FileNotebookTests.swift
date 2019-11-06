@@ -7,7 +7,7 @@ class FileNotebookTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        fileNotebook = FileNotebook.notebook
+        fileNotebook = FileNotebook()
     }
 
     override func tearDown() {
@@ -76,96 +76,6 @@ class FileNotebookTests: XCTestCase {
 
         XCTAssertTrue(notes.isEmpty)
     }
-
-    func testFileNotebook_whenSaveToFileAndLoadFromFile_correctRestoreNotes() {
-        let note = Note(title: "Title",
-                        content: "Text",
-                        importance: .normal)
-        fileNotebook.add(note: note)
-
-        let note2 = Note(title: "New Title",
-                         content: "My new text",
-                         importance: .important,
-                         color: NoteColor(currentColor: .red),
-                         selfDestructionDate: Date())
-        fileNotebook.add(note: note2)
-
-        do { try fileNotebook.saveNotesToFile() } catch { print("Notes saving Error") }
-
-        fileNotebook.remove(noteWith: note.uid)
-        fileNotebook.remove(noteWith: note2.uid)
-
-        XCTAssertTrue(fileNotebook.notes.isEmpty)
-
-        let note3 = Note(title: "New Title3",
-                         content: "My new text3",
-                         importance: .unimportant,
-                         color: NoteColor(currentColor: .green),
-                         selfDestructionDate: Date())
-        fileNotebook.add(note: note3)
-
-        do { try fileNotebook.loadNotesFromFile() } catch { print("Notes loading Error") }
-
-        let notes = fileNotebook.notes
-        XCTAssertEqual(notes.count, 2)
-        XCTAssertNotNil(getNote(by: note.uid, from: notes))
-        XCTAssertNotNil(getNote(by: note2.uid, from: notes))
-    }
-
-    func testFileNotebook_whenSaveToFileAndLoadFromFile_equalsRestoredNotes() {
-        let note = Note(title: "Title",
-                        content: "Text",
-                        importance: .normal)
-        fileNotebook.add(note: note)
-
-        let note2 = Note(title: "New Title",
-                         content: "My new text",
-                         importance: .important,
-                         color: NoteColor(currentColor: .red),
-                         selfDestructionDate: Date())
-        fileNotebook.add(note: note2)
-
-        do { try fileNotebook.saveNotesToFile() } catch { print("Notes saving Error") }
-        do { try fileNotebook.loadNotesFromFile() } catch { print("Notes loading Error") }
-
-        let notes = fileNotebook.notes
-
-        guard let checkedNote = getNote(by: note.uid, from: notes),
-            let checkedNote2 = getNote(by: note2.uid, from: notes) else {
-                XCTFail()
-                return
-        }
-
-        XCTAssertEqual(note.uid, checkedNote.uid)
-        XCTAssertEqual(note.title, checkedNote.title)
-        XCTAssertEqual(note.content, checkedNote.content)
-        XCTAssertEqual(note.importance, checkedNote.importance)
-        XCTAssertEqual(note.color.currentColor, checkedNote.color.currentColor)
-
-        XCTAssertNil(checkedNote.selfDestructionDate)
-
-        guard let checkedDate = checkedNote.selfDestructionDate,
-            let date = note.selfDestructionDate else {
-            return
-        }
-
-        XCTAssertEqual(checkedDate, date)
-
-        XCTAssertEqual(note2.uid, checkedNote2.uid)
-        XCTAssertEqual(note2.title, checkedNote2.title)
-        XCTAssertEqual(note2.content, checkedNote2.content)
-        XCTAssertEqual(note2.importance, checkedNote2.importance)
-        XCTAssertEqual(note2.color.currentColor, checkedNote2.color.currentColor)
-
-        XCTAssertNotNil(checkedNote.selfDestructionDate)
-
-        guard let checkedDate2 = checkedNote2.selfDestructionDate,
-            let date2 = note2.selfDestructionDate else {
-            return
-        }
-        XCTAssertEqual(checkedDate2, date2)
-    }
-
 
     private func getNote(by uid: String, from notes:Any) -> Note? {
         if let notes = notes as? [String: Note] {

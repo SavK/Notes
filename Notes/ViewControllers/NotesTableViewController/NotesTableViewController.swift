@@ -25,12 +25,23 @@ class NotesTableViewController: UITableViewController, NotesTableViewControllerP
     }
     
     @IBAction func newNoteButtonTapped() {
-        presenter.newNoteButtonAction()
+        presenter.selectedIndex = nil
+        
+        performSegue(withIdentifier: "showEditView", sender: nil)
+        
+        if tableView.isEditing {
+            guard let editButton = navigationItem.leftBarButtonItem else { return }
+            toggleEditingBarButton(editButton)
+        }
     }
     
     // MARK: - UIViewController Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        tableView.register(UINib(nibName: "NoteTableViewCell", bundle: nil),
+                                          forCellReuseIdentifier: "noteCell")
         
         /// Customizing
         deleteNoteActivityIndicator.hidesWhenStopped = true

@@ -20,13 +20,24 @@ extension NotesTableViewController {
     override func tableView(_ tableView: UITableView,
                             cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        return presenter.createTableViewCell(forRowAt: indexPath)
+        let note = presenter.notes[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "noteCell",
+                                                 for: indexPath) as! NoteTableViewCell
+        
+        cell.noteColorView?.backgroundColor = note.color.currentColor
+        cell.noteTitleLabel?.text = note.title
+        cell.noteContentLabel?.text = note.content
+        deleteNoteActivityIndicator.center = cell.noteColorView.center
+        return cell
     }
     
     override func tableView(_ tableView: UITableView,
                             commit editingStyle: UITableViewCell.EditingStyle,
                             forRowAt indexPath: IndexPath) {
         
-        presenter.changeEditingStyleActions(editingStyle: editingStyle, forRowAt: indexPath)
+        if editingStyle == .delete {
+            tableView.reloadData()
+            presenter.removeNoteData(atIndex: indexPath.row)
+        }
     }
 }

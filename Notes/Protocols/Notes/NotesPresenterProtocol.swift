@@ -33,20 +33,9 @@ protocol NotesPresenterProtocol: AuthenticationViewControllerDelegate, NoteDeleg
     func handleTokenChanged(token: String)
     /// Custom Methods
     func loadNetworkConnectionMonitor()
-    func requestToken()
-    func newNoteButtonAction()
     /// Data Methods
     func loadNotesData()
-    func removeNoteData(at indexPath: IndexPath)
-    /// Navigation
-    func prepareTransition(for segue: UIStoryboardSegue)
+    func removeNoteData(atIndex index: Int)
     /// NoteDelegate
     func addNote(_ note: Note)
-    /// Selectors
-    func saveNotes()
-    /// TableView Methods
-    func rowTapAction(forRowAt indexPath: IndexPath)
-    func createTableViewCell(forRowAt indexPath: IndexPath) -> UITableViewCell
-    func changeEditingStyleActions(editingStyle: UITableViewCell.EditingStyle,
-                                   forRowAt indexPath: IndexPath)
 }

@@ -12,6 +12,10 @@ import UIKit
 extension NotesTableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.rowTapAction(forRowAt: indexPath)
+        presenter.selectedIndex = indexPath.row
+        tableView.cellForRow(at: indexPath)?.isSelected = false
+        tableView.cellForRow(at: indexPath)?.isHighlighted = false
+        
+        performSegue(withIdentifier: "showEditView", sender: nil)
     }
 }

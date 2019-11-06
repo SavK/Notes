@@ -32,6 +32,7 @@ class EditNoteViewController: UIViewController {
     // MARK: - Properties
     let saveNoteActivityIndicator = UIActivityIndicatorView(style: .gray)
     let averageBrightness: CGFloat = 0.5
+    var noteBook: FileNotebook?
     var note = Note(title: "", content: "", importance: .normal, selfDestructionDate: nil)
     weak var delegate: NoteDelegate!
     /// Default palette color. Did set last selected color (or iridescent image)

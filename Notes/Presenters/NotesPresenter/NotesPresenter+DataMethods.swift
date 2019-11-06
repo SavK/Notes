@@ -13,7 +13,7 @@ import CocoaLumberjack
 extension NotesPresenter {
     
     func loadNotesData() {
-        let loadNotes = LoadNotesOperation(notebook: FileNotebook.notebook,
+        let loadNotes = LoadNotesOperation(notebook: noteBook,
                                            backendQueue: backendOperationQueue,
                                            dbQueue: dbOperationQueue,
                                            backgroundContext: backgroundContext)
@@ -23,24 +23,7 @@ extension NotesPresenter {
         if userSettings.isNeedAuthorization,
             !userSettings.isLoginedInGitHub,
             userSettings.isInternetConnectionOn {
-            
-            let yesAction = UIAlertAction(title: "Yes", style: .default) { _ in
-                UserSettings.shared.isNeedAuthorization = false
-                self.requestToken()
-            }
-            let noAction = UIAlertAction(title: "No", style: .cancel) { _ in
-                userSettings.isNeedAuthorization = false
-            }
-            let message =
-"""
-Sorry, but you are not logged in.
-Would you like to log into your GitHub account now?
-"""
-            
-            UIAlertController.showAlert(withTitle: "You are not logged in GitHub",
-                                        message: message,
-                                        actions: [yesAction, noAction],
-                                        target: viewController)
+            viewController.showAuthorizationAlert()
         }
         
         OperationQueue.main.addOperation {
@@ -55,7 +38,7 @@ Would you like to log into your GitHub account now?
             let isNeedEditing = self.notes.count > 0
             OperationQueue.main.addOperation {
                 self.viewController.deleteNoteActivityIndicatorStop()
-                self.viewController.tableView.reloadData()
+                self.viewController.reloadTableViewData()
                 self.viewController.isNeedEditNotes(isNeedEditing)
             }
         }
@@ -63,8 +46,8 @@ Would you like to log into your GitHub account now?
     }
     
     
-    func removeNoteData(at indexPath: IndexPath) {
-        let deletedNote = notes[indexPath.row]
+    func removeNoteData(atIndex index: Int) {
+        let deletedNote = notes[index]
         let removeNote = RemoveNoteOperation(note: deletedNote,
                                              notebook: noteBook,
                                              backendQueue: backendOperationQueue,
@@ -76,12 +59,12 @@ Would you like to log into your GitHub account now?
         }
         ///Delete row with animation
         removeNote.completionBlock = {
-            DDLogDebug("Removed tableViewCell at row: \(indexPath.row)")
+            DDLogDebug("Removed tableViewCell at row: \(index)")
             OperationQueue.main.addOperation {
                 UIView.animate(withDuration: 0.5) {
                     self.viewController.deleteNoteActivityIndicatorStop()
-                    self.notes.remove(at: indexPath.row)
-                    self.viewController.tableView.deleteRows(at: [indexPath], with: .left)
+                    self.notes.remove(at: index)
+                    self.viewController.deleteTableViewRow(atIndex: index)
                     
                     let isNeedEditing = self.notes.count > 0
                     self.viewController.isNeedEditNotes(isNeedEditing)

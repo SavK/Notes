@@ -12,6 +12,18 @@ import UIKit
 extension NotesTableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        presenter.prepareTransition(for: segue)
+        if let destination = segue.destination as? EditNoteViewController,
+            segue.identifier == "showEditView" {
+            
+            if let index = presenter.selectedIndex {
+                destination.title = "Изменение заметки"
+                destination.note = presenter.notes[index]
+            } else {
+                destination.title = "Создание заметки"
+            }
+            destination.noteBook = presenter.noteBook
+            destination.backgroundContext = presenter.backgroundContext
+            destination.delegate = presenter
+        }
     }
 }

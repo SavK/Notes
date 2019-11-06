@@ -12,17 +12,10 @@ import CocoaLumberjack
 class FileNotebook {
     
     // MARK: - Stored Properties
-    private(set) var notes: [Note]
+    private(set) var notes: [Note] = []
     let documentDirectory = FileManager.default.urls(for: .cachesDirectory,
                                                      in: .userDomainMask).first!
-    
-    static let notebook = FileNotebook()
-    
-    // MARK: - Initializators
-    init() {
-        self.notes = []
-    }
-    
+
     /// Add new note with UID checking
     public func add(note: Note) {
         guard let replaceNoteIndex = notes.firstIndex(where: { $0.uid == note.uid }) else {
@@ -56,45 +49,6 @@ class FileNotebook {
             catch { DDLogError("ERROR: Can't create cache directory") }
         }
         return directoryURL.appendingPathComponent("Notes")
-    }
-    
-    /// Save notes as JSON Data into file
-    public func saveNotesToFile() throws {
-        let jsonArray = notes.map { $0.json }
-        if let data = try? JSONSerialization.data(withJSONObject: jsonArray, options: []) {
-            if FileManager.default.createFile(atPath: getCacheFileDirectory().path, contents: data,
-                                              attributes: nil) {
-                DDLogInfo("Notes successfuly saved to DB")
-            } else {
-                DDLogError("ERROR: Notes didn't saved")
-                throw NoteFilesError.unsaving
-            }
-        } else {
-            DDLogError("ERROR: Data can't serialized")
-            throw NoteFilesError.unsaving
-        }
-    }
-    
-    /// Load JSON Data from file and update notes
-    public func loadNotesFromFile() throws {
-        notes.removeAll()
-        do {
-            if let data = try? Data(contentsOf: getCacheFileDirectory()),
-                let jsonData = try JSONSerialization.jsonObject(with: data,
-                                                                options: []) as? [[String: Any]] {
-                
-                jsonData.forEach {
-                    guard let note = Note.parse(json: $0) else { return }
-                    self.add(note: note)
-                }
-            } else {
-                DDLogError("Can't load notes from file.")
-                throw NoteFilesError.unloading
-            }
-        } catch {
-            DDLogError("ERROR load from file: \(error.localizedDescription)")
-            throw NoteFilesError.unloading
-        }
     }
     
     static func convertNoteFromJson(data: Data) -> [Note] {

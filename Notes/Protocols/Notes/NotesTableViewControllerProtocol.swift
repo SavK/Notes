@@ -6,22 +6,23 @@
 //  Copyright © 2019 Savonevich Konstantin. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-protocol NotesTableViewControllerProtocol: UITableViewController {
+protocol NotesTableViewControllerProtocol: class {
     
     // MARK: - Properties
     var presenter: NotesPresenterProtocol! { get set }
-    var leftBarButton: UIBarButtonItem! { get set }
-    var deleteNoteActivityIndicator: UIActivityIndicatorView { get }
     
     // MARK: - Methods
-    /// Buttons Methods
-    func editButtonTapped(_ sender: UIBarButtonItem)
-    func newNoteButtonTapped()
+    /// Alerts
+    func showAuthorizationAlert()
+    func showErrorAlert(withTitle title: String)
     /// Custom Methods
-    func toggleEditingBarButton(_ button: UIBarButtonItem)
+    func requestToken()
     func isNeedEditNotes(_ status: Bool)
+    func updateSelectedRow()
+    func deleteTableViewRow(atIndex index: Int)
+    func reloadTableViewData()
     func deleteNoteActivityIndicatorStart()
     func deleteNoteActivityIndicatorStop()
 }
